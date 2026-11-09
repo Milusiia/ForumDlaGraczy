@@ -9,7 +9,7 @@ html {
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+  box-shadow: 0 0 0 0.1rem #168f01, 0 0 0 0.25rem #258cfb;
 }
 
 html {
@@ -19,6 +19,7 @@ html {
 
 body {
   margin-bottom: 60px;
+  background: rgb(57,58,79);
 }
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
@@ -28,4 +29,112 @@ body {
 
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
+}
+
+.pasek-nawigacji {
+  background-color: rgb(57,58,79);
+  color: rgb(190,239,141);
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+}
+
+.sekcja_menu {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo-ikonka {
+  color: rgb(190,239,141);
+}
+
+.logo-napis {
+  color: rgb(190,239,141);
+}
+
+.pole-wyszukiwania {
+  background-color: rgb(57,58,79);
+  color: #fff;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  border: 1px solid rgb(190,239,141);
+  width: 250px; /* Sztywna szerokość paska */
+  outline: none; /* Usuwa domyślną, brzydką obwódkę przeglądarki pojawiającą się przy pisaniu */
+  transition: 0.3s ease;
+}
+
+.wyszukiwanie:focus {
+  box-shadow: 0 0 15px rgba(22, 143, 1, 0.5); /* Delikatna, zielona poświata wokół paska */
+}
+
+.gry{
+  display: flex;
+  gap: 10px;
+  overflow-x: auto; /* Włącza poziomy pasek przewijania, gdy elementów jest za dużo */
+  padding: 20px 10px; /* Zostawia margines, żeby cień kafelków po najechaniu nie był ucinany */
+}
+
+.gry::-webkit-scrollbar {
+  display: none;
+}
+
+.gry {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.kafelek-gry {
+  width: 200px;
+  height: 200px;
+  border-radius: 15px;
+  position: relative; /* Pozwala nam układać elementy wewnątrz warstwami (jedno na drugim) */
+  
+  display: flex;
+  justify-content: center; /* Wyśrodkowanie w poziomie (lewo-prawo) */
+  align-items: center; /* Wyśrodkowanie w pionie (góra-dół) */
+  overflow: hidden;
+  transition: 0.3s ease; /* Dodanie efektu podskoku kafelka */
+  flex-shrink: 0; /* Ta komenda to tarcza. Zabrania przeglądarce zgniatania kafelków w celu upchnięcia ich na ekranie */
+}
+
+.kafelek-gry::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0,0,0, 0.9), transparent);
+}
+
+.kafelek-gry:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 5px 15px rgb(190,239,141);
+}
+
+.grafika-gry {
+  width: 100%; /* Używamy procentów, żeby zawsze wypełniał całe pudełko */
+  height: 100%;
+  object-fit: cover; /* Sprawia, że obrazek wypełnia pudełko jak tapeta, nie zniekształcając proporcji */
+  position: absolute; /* Odkleja obrazek od normalnego układu i pozwala mu działać jak tło*/
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.tytul-gry {
+  position: relative;
+  z-index: 2;
+  color: rgb(190,239,141);
+
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 20px;
 }
