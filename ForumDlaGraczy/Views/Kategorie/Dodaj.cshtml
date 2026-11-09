@@ -1,0 +1,30 @@
+﻿@model ForumDlaGraczy.Models.KategoriaForumModel
+
+<h2>Dodawanie kategorii forum</h2>
+
+@if (ViewBag.Komunikat != null)
+{
+    <p>@ViewBag.Komunikat</p>
+}
+
+<form asp-controller="Kategorie" asp-action="Dodaj" method="post">
+
+    <div>
+        <label asp-for="Nazwa"></label>
+        <input asp-for="Nazwa" />
+        <span asp-validation-for="Nazwa"></span>
+    </div>
+
+    <br />
+
+    <div>
+        <label asp-for="Opis"></label>
+        <textarea asp-for="Opis"></textarea>
+        <span asp-validation-for="Opis"></span>
+    </div>
+
+    <br />
+
+    <button type="submit">Dodaj kategorię</button>
+
+</form>

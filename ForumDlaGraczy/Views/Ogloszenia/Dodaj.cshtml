@@ -1,0 +1,30 @@
+﻿@model ForumDlaGraczy.Models.OgloszenieModel
+
+<h2>Dodawanie ogłoszenia</h2>
+
+@if (ViewBag.Komunikat != null)
+{
+    <p>@ViewBag.Komunikat</p>
+}
+
+<form asp-controller="Ogloszenia" asp-action="Dodaj" method="post">
+
+    <div>
+        <label asp-for="Tytul"></label>
+        <input asp-for="Tytul" />
+        <span asp-validation-for="Tytul"></span>
+    </div>
+
+    <br />
+
+    <div>
+        <label asp-for="Tresc"></label>
+        <textarea asp-for="Tresc" rows="5"></textarea>
+        <span asp-validation-for="Tresc"></span>
+    </div>
+
+    <br />
+
+    <button type="submit">Dodaj ogłoszenie</button>
+
+</form>

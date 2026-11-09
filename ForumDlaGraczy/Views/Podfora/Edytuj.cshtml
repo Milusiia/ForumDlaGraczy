@@ -1,0 +1,44 @@
+﻿@model ForumDlaGraczy.Models.PodforumModel
+
+<h2>Edytowanie podforum</h2>
+
+@if (ViewBag.Komunikat != null)
+{
+    <p>@ViewBag.Komunikat</p>
+}
+
+<form asp-controller="Podfora" asp-action="Edytuj" method="post">
+
+    <input type="hidden" asp-for="Id" />
+
+    <div>
+        <label asp-for="Nazwa"></label>
+        <input asp-for="Nazwa" />
+        <span asp-validation-for="Nazwa"></span>
+    </div>
+
+    <br />
+
+    <div>
+        <label asp-for="Opis"></label>
+        <textarea asp-for="Opis"></textarea>
+        <span asp-validation-for="Opis"></span>
+    </div>
+
+    <br />
+
+    <div>
+        <label asp-for="KategoriaForumId"></label>
+
+        <select asp-for="KategoriaForumId" asp-items="ViewBag.Kategorie">
+            <option value="">-- Wybierz kategorię --</option>
+        </select>
+
+        <span asp-validation-for="KategoriaForumId"></span>
+    </div>
+
+    <br />
+
+    <button type="submit">Zapisz zmiany</button>
+
+</form>
