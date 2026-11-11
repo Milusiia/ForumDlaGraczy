@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Strona Główna";
 }
 
 <div class="karuzela_gier">
@@ -56,3 +56,136 @@
     </div>
     <i class="fa-solid fa-chevron-right"></i>
 </div>
+
+<div class="glowny-uklad">
+
+    <!-- LEWA KOLUMNA: Statystyki -->
+    <div class="kolumna">
+        <h3 style="color: #00ffa3; font-weight: 700; margin-bottom: 25px; text-transform: uppercase; font-size: 16px; letter-spacing: 1px;">Statystyki Forum</h3>
+
+        <div style="display: flex; justify-content: space-between; margin-bottom: 12px; color: #94a3b8;">
+            <span>Graczy online:</span>
+            <span style="font-weight: 700; color: #fff;">1,204</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 12px; color: #94a3b8;">
+            <span>Wszystkich postów:</span>
+            <span style="font-weight: 700; color: #fff;">84,392</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 12px; color: #94a3b8;">
+            <span>Zarejestrowanych:</span>
+            <span style="font-weight: 700; color: #fff;">12,943</span>
+        </div>
+
+        <hr style="border-color: rgba(255,255,255,0.1); margin: 25px 0;" />
+
+        <h3 style="color: #00ffa3; font-weight: 700; margin-bottom: 20px; text-transform: uppercase; font-size: 16px; letter-spacing: 1px;">Top Tygodnia</h3>
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div><span style="color: #fbbf24; margin-right: 10px;">👑</span> <span style="font-weight: 600; color: white;">ProGamer99</span></div>
+                <span style="color: #7b61ff; font-weight: 700; font-size: 14px;">142 pkt</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div><span style="color: #94a3b8; margin-right: 10px;">🥈</span> <span style="font-weight: 600; color: white;">NoobSlayer</span></div>
+                <span style="color: #7b61ff; font-weight: 700; font-size: 14px;">98 pkt</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div><span style="color: #b45309; margin-right: 10px;">🥉</span> <span style="font-weight: 600; color: white;">AlaMaKota</span></div>
+                <span style="color: #7b61ff; font-weight: 700; font-size: 14px;">75 pkt</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ŚRODKOWA KOLUMNA: Najpopularniejsze kategorie -->
+    <div class="kolumna">
+        <h3 style="color: #00ffa3; font-weight: 700; margin-bottom: 25px; text-transform: uppercase; font-size: 16px; letter-spacing: 1px;">Kategorie Forum</h3>
+
+        <div style="background: #1a1c29; border: 1px solid rgba(255,255,255,0.05); padding: 15px 20px; border-radius: 10px; margin-bottom: 15px; transition: 0.3s; cursor: pointer; border-left: 4px solid #00ffa3;" onmouseover="this.style.boxShadow='0 0 20px rgba(0,255,163,0.15)'; this.style.transform='translateX(5px)'" onmouseout="this.style.boxShadow='none'; this.style.transform='translateX(0)'">
+            <h4 style="color: white; font-weight: 600; font-size: 16px; margin: 0 0 6px 0;">🎮 Nowości ze świata gier</h4>
+            <p style="color: #94a3b8; font-size: 13px; margin: 0;">Najświeższe informacje, zapowiedzi, zwiastuny i dyskusje o premierach.</p>
+        </div>
+
+        <div style="background: #1a1c29; border: 1px solid rgba(255,255,255,0.05); padding: 15px 20px; border-radius: 10px; margin-bottom: 15px; transition: 0.3s; cursor: pointer; border-left: 4px solid #7b61ff;" onmouseover="this.style.boxShadow='0 0 20px rgba(123,97,255,0.15)'; this.style.transform='translateX(5px)'" onmouseout="this.style.boxShadow='none'; this.style.transform='translateX(0)'">
+            <h4 style="color: white; font-weight: 600; font-size: 16px; margin: 0 0 6px 0;">🛠️ Sprzęt komputerowy</h4>
+            <p style="color: #94a3b8; font-size: 13px; margin: 0;">Składanie PC, problemy techniczne, testy podzespołów i polecane laptopy.</p>
+        </div>
+
+        <div style="background: #1a1c29; border: 1px solid rgba(255,255,255,0.05); padding: 15px 20px; border-radius: 10px; transition: 0.3s; cursor: pointer; border-left: 4px solid #00ffa3;" onmouseover="this.style.boxShadow='0 0 20px rgba(0,255,163,0.15)'; this.style.transform='translateX(5px)'" onmouseout="this.style.boxShadow='none'; this.style.transform='translateX(0)'">
+            <h4 style="color: white; font-weight: 600; font-size: 16px; margin: 0 0 6px 0;">🤝 Szukam graczy</h4>
+            <p style="color: #94a3b8; font-size: 13px; margin: 0;">Nie masz z kim grać? Znajdź drużynę lub ekipę do wspólnych rozgrywek.</p>
+        </div>
+    </div>
+
+    <!-- PRAWA KOLUMNA: Najnowsza aktywność -->
+    <div class="kolumna">
+        <h3 style="color: #00ffa3; font-weight: 700; margin-bottom: 25px; text-transform: uppercase; font-size: 16px; letter-spacing: 1px;">Aktywność</h3>
+
+        <div style="margin-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 12px; transition: 0.2s; cursor: pointer;" onmouseover="this.querySelector('h5').style.color='#00ffa3'" onmouseout="this.querySelector('h5').style.color='white'">
+            <h5 style="color: white; font-size: 14px; margin: 0 0 6px 0; font-weight: 600; transition: 0.2s;">Jakiego pada kupić do PC?</h5>
+            <p style="color: #64748b; font-size: 12px; margin: 0;">Przez: <span style="color: #e2e8f0;">Kamil22</span> • 5 min temu</p>
+        </div>
+
+        <div style="margin-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 12px; transition: 0.2s; cursor: pointer;" onmouseover="this.querySelector('h5').style.color='#7b61ff'" onmouseout="this.querySelector('h5').style.color='white'">
+            <h5 style="color: white; font-size: 14px; margin: 0 0 6px 0; font-weight: 600; transition: 0.2s;">Spadki FPS w CS2 po aktualizacji</h5>
+            <p style="color: #64748b; font-size: 12px; margin: 0;">Przez: <span style="color: #e2e8f0;">Sniper1</span> • 12 min temu</p>
+        </div>
+
+        <div style="margin-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 12px; transition: 0.2s; cursor: pointer;" onmouseover="this.querySelector('h5').style.color='#00ffa3'" onmouseout="this.querySelector('h5').style.color='white'">
+            <h5 style="color: white; font-size: 14px; margin: 0 0 6px 0; font-weight: 600; transition: 0.2s;">Szukam gildii w WoW (Horda)</h5>
+            <p style="color: #64748b; font-size: 12px; margin: 0;">Przez: <span style="color: #e2e8f0;">ElfMage</span> • 23 min temu</p>
+        </div>
+
+        <div style="transition: 0.2s; cursor: pointer;" onmouseover="this.querySelector('h5').style.color='#7b61ff'" onmouseout="this.querySelector('h5').style.color='white'">
+            <h5 style="color: white; font-size: 14px; margin: 0 0 6px 0; font-weight: 600; transition: 0.2s;">Oceny nowego Silent Hill</h5>
+            <p style="color: #64748b; font-size: 12px; margin: 0;">Przez: <span style="color: #e2e8f0;">HorrorFan</span> • 45 min temu</p>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slider = document.querySelector('.gry');
+            const leftBtn = document.querySelector('.fa-chevron-left');
+            const rightBtn = document.querySelector('.fa-chevron-right');
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            // Przewijanie strzałkami
+            leftBtn.addEventListener('click', () => {
+                slider.scrollBy({ left: -300, behavior: 'smooth' });
+            });
+
+            rightBtn.addEventListener('click', () => {
+                slider.scrollBy({ left: 300, behavior: 'smooth' });
+            });
+
+            // Przeciąganie myszką
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                slider.classList.add('active');
+                startX = e.pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+            });
+            
+            slider.addEventListener('mouseleave', () => {
+                isDown = false;
+                slider.classList.remove('active');
+            });
+            
+            slider.addEventListener('mouseup', () => {
+                isDown = false;
+                slider.classList.remove('active');
+            });
+            
+            slider.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - slider.offsetLeft;
+                const walk = (x - startX) * 2;
+                slider.scrollLeft = scrollLeft - walk;
+            });
+        });
+    </script>
+}
