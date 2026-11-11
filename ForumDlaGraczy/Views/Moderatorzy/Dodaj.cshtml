@@ -1,0 +1,38 @@
+﻿@model ForumDlaGraczy.Models.PrzypisanieModeratoraModel
+
+<h2>Przypisywanie moderatora do podforum</h2>
+
+@if (ViewBag.Komunikat != null)
+{
+    <p>@ViewBag.Komunikat</p>
+}
+
+<form asp-controller="Moderatorzy" asp-action="Dodaj" method="post">
+
+    <div>
+        <label asp-for="UzytkownikId"></label>
+
+        <select asp-for="UzytkownikId" asp-items="ViewBag.Uzytkownicy">
+            <option value="">-- Wybierz użytkownika --</option>
+        </select>
+
+        <span asp-validation-for="UzytkownikId"></span>
+    </div>
+
+    <br />
+
+    <div>
+        <label asp-for="PodforumId"></label>
+
+        <select asp-for="PodforumId" asp-items="ViewBag.Podfora">
+            <option value="">-- Wybierz podforum --</option>
+        </select>
+
+        <span asp-validation-for="PodforumId"></span>
+    </div>
+
+    <br />
+
+    <button type="submit">Przypisz moderatora</button>
+
+</form>

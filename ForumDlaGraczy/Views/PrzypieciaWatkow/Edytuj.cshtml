@@ -1,0 +1,33 @@
+﻿@model ForumDlaGraczy.Models.PrzypiecieWatkuModel
+
+<h2>Przypinanie wątku</h2>
+
+@if (ViewBag.Komunikat != null)
+{
+    <p>@ViewBag.Komunikat</p>
+}
+
+<form asp-controller="PrzypieciaWatkow" asp-action="Edytuj" method="post">
+
+    <div>
+        <label asp-for="WatekId"></label>
+
+        <select asp-for="WatekId" asp-items="ViewBag.Watki">
+            <option value="">-- Wybierz wątek --</option>
+        </select>
+
+        <span asp-validation-for="WatekId"></span>
+    </div>
+
+    <br />
+
+    <div>
+        <input asp-for="CzyPrzypiety" />
+        <label asp-for="CzyPrzypiety"></label>
+    </div>
+
+    <br />
+
+    <button type="submit">Zapisz zmiany</button>
+
+</form>
