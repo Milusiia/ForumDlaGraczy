@@ -1,0 +1,70 @@
+﻿@model IEnumerable<ForumDlaGraczy.Models.PodforumModel>
+
+@{
+    var nazwyKategorii = ViewBag.NazwyKategorii as Dictionary<int, string>;
+}
+
+<h2>Lista podforów</h2>
+
+@if (TempData["Komunikat"] != null)
+{
+    <p>@TempData["Komunikat"]</p>
+}
+
+<p>
+    <a asp-controller="Podfora" asp-action="Dodaj">
+        Dodaj nowe podforum
+    </a>
+</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nazwa podforum</th>
+            <th>Opis</th>
+            <th>Kategoria</th>
+            <th>Akcje</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var podforum in Model)
+        {
+            var nazwaKategorii = "Nieznana kategoria";
+
+            if (nazwyKategorii != null &&
+                nazwyKategorii.ContainsKey(podforum.KategoriaForumId ?? 0))
+            {
+                nazwaKategorii = nazwyKategorii[podforum.KategoriaForumId.Value];
+            }
+
+            <tr>
+                <td>@podforum.Id</td>
+                <td>@podforum.Nazwa</td>
+                <td>@podforum.Opis</td>
+                <td>@nazwaKategorii</td>
+
+                <td>
+                    <a asp-controller="Podfora"
+                       asp-action="Edytuj"
+                       asp-route-id="@podforum.Id">
+                        Edytuj
+                    </a>
+
+                    <form asp-controller="Podfora"
+                          asp-action="Usun"
+                          asp-route-id="@podforum.Id"
+                          method="post"
+                          style="display:inline">
+
+                        @Html.AntiForgeryToken()
+
+                        <button type="submit">Usuń</button>
+
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
