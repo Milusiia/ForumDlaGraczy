@@ -1,4 +1,23 @@
+using Microsoft.EntityFrameworkCore;
+using ForumDlaGraczy.Data;
+using ForumDlaGraczy.Models;
+using Microsoft.AspNetCore.Identity;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Pobranie adresu bazy z appsettings.json
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+// Rejestracja bazy danych
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(connectionString));
+
+builder.Services.AddIdentity<UzytkownikAplikacji, IdentityRole>(options => 
+    {
+        options.SignIn.RequireConfirmedAccount = false; // Wyłączamy wymóg potwierdzania maila na start
+    })
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
