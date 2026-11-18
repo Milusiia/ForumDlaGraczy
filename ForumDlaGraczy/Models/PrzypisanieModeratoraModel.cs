@@ -4,6 +4,8 @@ namespace ForumDlaGraczy.Models
 {
     public class PrzypisanieModeratoraModel
     {
+        public int Id { get; set; }
+
         [Required(ErrorMessage = "Wybierz użytkownika.")]
         [Display(Name = "Użytkownik")]
         public int? UzytkownikId { get; set; }

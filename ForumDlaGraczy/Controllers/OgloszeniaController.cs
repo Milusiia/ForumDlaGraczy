@@ -5,14 +5,48 @@ namespace ForumDlaGraczy.Controllers
 {
     public class OgloszeniaController : Controller
     {
-        // formularz dodawania ogłoszenia
+        // Przykładowa lista ogłoszeń
+        private static List<OgloszenieModel> ogloszenia = new List<OgloszenieModel>
+        {
+            new OgloszenieModel
+            {
+                Id = 1,
+                Tytul = "Turniej Counter-Strike 2!",
+                Tresc = "W sobotę organizujemy turniej. Zapraszamy wszystkich graczy!"
+            },
+
+            new OgloszenieModel
+            {
+                Id = 2,
+                Tytul = "Przerwa techniczna",
+                Tresc = "W niedzielę forum będzie niedostępne od godziny 22:00."
+            },
+
+            new OgloszenieModel
+            {
+                Id = 3,
+                Tytul = "Nowe podforum",
+                Tresc = "Zapraszamy do nowego podforum poświęconego Minecraftowi."
+            }
+        };
+
+        private static int nastepneId = 4;
+
+        // Wyświetlenie listy ogłoszeń
+        [HttpGet]
+        public IActionResult Index()
+        {
+            return View(ogloszenia);
+        }
+
+        // Formularz dodawania ogłoszenia
         [HttpGet]
         public IActionResult Dodaj()
         {
             return View();
         }
 
-        // Obsługa formularza dodawania ogłoszenia
+        // Obsługa dodawania ogłoszenia
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Dodaj(OgloszenieModel model)
@@ -22,26 +56,29 @@ namespace ForumDlaGraczy.Controllers
                 return View(model);
             }
 
-            ViewBag.Komunikat = "Ogłoszenie zostało poprawnie przygotowane!";
+            model.Id = nastepneId++;
+            ogloszenia.Add(model);
 
-            return View(model);
+            TempData["Komunikat"] = "Ogłoszenie zostało dodane!";
+
+            return RedirectToAction("Index");
         }
 
-        // formularz edycji ogłoszenia
+        // Formularz edycji ogłoszenia
         [HttpGet]
-        public IActionResult Edytuj()
+        public IActionResult Edytuj(int id)
         {
-            var ogloszenie = new OgloszenieModel
+            var ogloszenie = ogloszenia.FirstOrDefault(o => o.Id == id);
+
+            if (ogloszenie == null)
             {
-                Id = 1,
-                Tytul = "Turniej Gry",
-                Tresc = "Test test"
-            };
+                return NotFound();
+            }
 
             return View(ogloszenie);
         }
 
-        // Obsługa formularza edycji ogłoszenia
+        // Obsługa edycji ogłoszenia
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edytuj(OgloszenieModel model)
@@ -51,9 +88,36 @@ namespace ForumDlaGraczy.Controllers
                 return View(model);
             }
 
-            ViewBag.Komunikat = "Ogłoszenie zostało poprawnie zmienione!";
+            var ogloszenie = ogloszenia.FirstOrDefault(o => o.Id == model.Id);
 
-            return View(model);
+            if (ogloszenie == null)
+            {
+                return NotFound();
+            }
+
+            ogloszenie.Tytul = model.Tytul;
+            ogloszenie.Tresc = model.Tresc;
+
+            TempData["Komunikat"] = "Ogłoszenie zostało zmienione!";
+
+            return RedirectToAction("Index");
+        }
+
+        // Usuwanie ogłoszenia
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Usun(int id)
+        {
+            var ogloszenie = ogloszenia.FirstOrDefault(o => o.Id == id);
+
+            if (ogloszenie != null)
+            {
+                ogloszenia.Remove(ogloszenie);
+
+                TempData["Komunikat"] = "Ogłoszenie zostało usunięte!";
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }
