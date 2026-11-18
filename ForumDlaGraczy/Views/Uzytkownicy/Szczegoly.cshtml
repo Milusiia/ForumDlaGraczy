@@ -1,0 +1,75 @@
+﻿@model ForumDlaGraczy.Models.UzytkownikAplikacji
+
+@{
+    bool zablokowany =
+        Model.LockoutEnd.HasValue &&
+        Model.LockoutEnd.Value > DateTimeOffset.UtcNow;
+}
+
+<h2>Szczegóły użytkownika</h2>
+
+@if (TempData["Komunikat"] != null)
+{
+    <p>@TempData["Komunikat"]</p>
+}
+
+<table>
+    <tr>
+        <th>Nazwa użytkownika</th>
+        <td>@Model.UserName</td>
+    </tr>
+
+    <tr>
+        <th>Adres e-mail</th>
+        <td>@Model.Email</td>
+    </tr>
+
+    <tr>
+        <th>Telefon</th>
+        <td>@Model.PhoneNumber</td>
+    </tr>
+
+    <tr>
+        <th>Data rejestracji</th>
+        <td>@Model.DataRejestracji.ToString("dd.MM.yyyy HH:mm")</td>
+    </tr>
+
+    <tr>
+        <th>Wybrana skórka</th>
+        <td>@Model.WybranaSkorka</td>
+    </tr>
+
+    <tr>
+        <th>Wiadomości na stronę</th>
+        <td>@Model.WiadomosciNaStrone</td>
+    </tr>
+
+    <tr>
+        <th>Status konta</th>
+        <td>
+            @if (zablokowany)
+            {
+                <span>Zablokowany</span>
+            }
+            else
+            {
+                <span>Aktywny</span>
+            }
+        </td>
+    </tr>
+</table>
+
+<br />
+
+<a asp-controller="Uzytkownicy"
+   asp-action="Edytuj"
+   asp-route-id="@Model.Id">
+    Edytuj użytkownika
+</a>
+
+<br />
+<br />
+
+<a asp-controller="Uzytkownicy" asp-action="Index">
+    Powrót do listy użytkowników
+</a>

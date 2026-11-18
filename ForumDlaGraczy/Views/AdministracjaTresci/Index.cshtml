@@ -1,0 +1,58 @@
+﻿@model IEnumerable<ForumDlaGraczy.Models.WatekAdministracyjnyModel>
+
+<h2>Zarządzanie wątkami</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Tytuł wątku</th>
+            <th>Autor</th>
+            <th>Forum</th>
+            <th>Data utworzenia</th>
+            <th>Odsłony</th>
+            <th>Odpowiedzi</th>
+            <th>Przypięty</th>
+            <th>Akcje</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var watek in Model)
+        {
+            <tr>
+                <td>@watek.Id</td>
+
+                <td>@watek.Tytul</td>
+
+                <td>@watek.Autor</td>
+
+                <td>@watek.Podforum</td>
+
+                <td>@watek.DataUtworzenia.ToString("dd.MM.yyyy")</td>
+
+                <td>@watek.LiczbaOdslon</td>
+
+                <td>@watek.LiczbaOdpowiedzi</td>
+
+                <td>
+                    @(watek.CzyPrzypiety ? "Tak" : "Nie")
+                </td>
+
+                <td>
+                    <a asp-controller="AdministracjaTresci"
+                       asp-action="Wiadomosci"
+                       asp-route-id="@watek.Id">
+                        Zobacz wiadomości
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<br />
+
+<a asp-controller="PanelAdministracyjny" asp-action="Index">
+    Powrót do panelu administracyjnego
+</a>

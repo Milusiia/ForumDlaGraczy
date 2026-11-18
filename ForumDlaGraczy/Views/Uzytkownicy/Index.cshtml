@@ -1,0 +1,104 @@
+﻿@model IEnumerable<ForumDlaGraczy.Models.UzytkownikAplikacji>
+
+<h2>Lista użytkowników</h2>
+
+@if (TempData["Komunikat"] != null)
+{
+    <p>@TempData["Komunikat"]</p>
+}
+
+@if (!Model.Any())
+{
+    <p>Nie ma jeszcze zarejestrowanych użytkowników.</p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Nazwa użytkownika</th>
+                <th>E-mail</th>
+                <th>Data rejestracji</th>
+                <th>Status konta</th>
+                <th>Akcje</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var uzytkownik in Model)
+            {
+                bool zablokowany =
+                    uzytkownik.LockoutEnd.HasValue &&
+                    uzytkownik.LockoutEnd.Value > DateTimeOffset.UtcNow;
+
+                <tr>
+                    <td>@uzytkownik.UserName</td>
+                    <td>@uzytkownik.Email</td>
+                    <td>@uzytkownik.DataRejestracji.ToString("dd.MM.yyyy")</td>
+
+                    <td>
+                        @if (zablokowany)
+                        {
+                            <span>Zablokowany</span>
+                        }
+                        else
+                        {
+                            <span>Aktywny</span>
+                        }
+                    </td>
+
+                    <td>
+                        <a asp-controller="Uzytkownicy"
+                           asp-action="Szczegoly"
+                           asp-route-id="@uzytkownik.Id">
+                            Szczegóły
+                        </a>
+
+                        |
+
+                        <a asp-controller="Uzytkownicy"
+                           asp-action="Edytuj"
+                           asp-route-id="@uzytkownik.Id">
+                            Edytuj
+                        </a>
+
+                        |
+
+                        @if (zablokowany)
+                        {
+                            <form asp-controller="Uzytkownicy"
+                                  asp-action="Odblokuj"
+                                  asp-route-id="@uzytkownik.Id"
+                                  method="post"
+                                  style="display:inline">
+
+                                @Html.AntiForgeryToken()
+
+                                <button type="submit">
+                                    Odblokuj
+                                </button>
+
+                            </form>
+                        }
+                        else
+                        {
+                            <form asp-controller="Uzytkownicy"
+                                  asp-action="Zablokuj"
+                                  asp-route-id="@uzytkownik.Id"
+                                  method="post"
+                                  style="display:inline">
+
+                                @Html.AntiForgeryToken()
+
+                                <button type="submit">
+                                    Zablokuj
+                                </button>
+
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

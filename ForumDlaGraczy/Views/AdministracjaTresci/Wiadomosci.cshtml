@@ -1,0 +1,84 @@
+﻿@model IEnumerable<ForumDlaGraczy.Models.WiadomoscAdministracyjnaModel>
+
+@{
+    var watek = ViewBag.Watek as ForumDlaGraczy.Models.WatekAdministracyjnyModel;
+}
+
+<h2>Wiadomości w wątku</h2>
+
+@if (TempData["Komunikat"] != null)
+{
+    <p>@TempData["Komunikat"]</p>
+}
+
+@if (watek != null)
+{
+    <h3>@watek.Tytul</h3>
+    <p>Autor wątku: @watek.Autor</p>
+    <p>Forum: @watek.Podforum</p>
+}
+
+@if (!Model.Any())
+{
+    <p>Ten wątek nie ma jeszcze żadnych odpowiedzi.</p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Autor</th>
+                <th>Treść wiadomości</th>
+                <th>Data</th>
+                <th>Akcje</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var wiadomosc in Model)
+            {
+                <tr>
+                    <td>@wiadomosc.Id</td>
+
+                    <td>@wiadomosc.Autor</td>
+
+                    <td>@wiadomosc.Tresc</td>
+
+                    <td>@wiadomosc.DataUtworzenia.ToString("dd.MM.yyyy HH:mm")</td>
+
+                    <td>
+                        <a asp-controller="AdministracjaTresci"
+                           asp-action="EdytujWiadomosc"
+                           asp-route-id="@wiadomosc.Id">
+                            Edytuj
+                        </a>
+
+                        |
+
+                        <form asp-controller="AdministracjaTresci"
+                              asp-action="UsunWiadomosc"
+                              asp-route-id="@wiadomosc.Id"
+                              method="post"
+                              style="display:inline">
+
+                            @Html.AntiForgeryToken()
+
+                            <button type="submit"
+                                    onclick="return confirm('Czy na pewno chcesz usunąć tę wiadomość?')">
+                                Usuń
+                            </button>
+
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<br />
+
+<a asp-controller="AdministracjaTresci" asp-action="Index">
+    Powrót do listy wątków
+</a>

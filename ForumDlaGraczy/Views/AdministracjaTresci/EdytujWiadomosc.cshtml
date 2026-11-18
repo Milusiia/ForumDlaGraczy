@@ -1,0 +1,43 @@
+﻿@model ForumDlaGraczy.Models.WiadomoscAdministracyjnaModel
+
+<h2>Edytowanie wiadomości</h2>
+
+<div asp-validation-summary="ModelOnly"></div>
+
+<p>
+    <strong>Wątek:</strong> @Model.TytulWatku
+</p>
+
+<p>
+    <strong>Autor wiadomości:</strong> @Model.Autor
+</p>
+
+<form asp-controller="AdministracjaTresci"
+      asp-action="EdytujWiadomosc"
+      method="post">
+
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" asp-for="Id" />
+
+    <div>
+        <label asp-for="Tresc"></label>
+
+        <textarea asp-for="Tresc" rows="6"></textarea>
+
+        <span asp-validation-for="Tresc"></span>
+    </div>
+
+    <br />
+
+    <button type="submit">Zapisz zmiany</button>
+
+</form>
+
+<br />
+
+<a asp-controller="AdministracjaTresci"
+   asp-action="Wiadomosci"
+   asp-route-id="@Model.WatekId">
+    Powrót do wiadomości
+</a>
