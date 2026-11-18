@@ -10,34 +10,38 @@ namespace ForumDlaGraczy.Controllers
         private static List<PodforumModel> podfora = new List<PodforumModel>
         {
             new PodforumModel
-            {
-                Id = 1,
-                Nazwa = "Minecraft",
-                Opis = "Dyskusje o grze Minecraft.",
-                KategoriaForumId = 2
-            },
+{
+    Id = 1,
+    Nazwa = "Minecraft",
+    Opis = "Dyskusje o grze Minecraft.",
+    KategoriaForumId = 2,
+    CzyAnonimowiMogaOgladac = true,
+    CzyAnonimowiMogaPisac = false
+},
 
-            new PodforumModel
-            {
-                Id = 2,
-                Nazwa = "Counter-Strike 2",
-                Opis = "Rozmowy o Counter-Strike 2.",
-                KategoriaForumId = 2
-            },
+new PodforumModel
+{
+    Id = 2,
+    Nazwa = "Counter-Strike 2",
+    Opis = "Rozmowy o Counter-Strike 2.",
+    KategoriaForumId = 2,
+    CzyAnonimowiMogaOgladac = true,
+    CzyAnonimowiMogaPisac = true
+},
 
-            new PodforumModel
-            {
-                Id = 3,
-                Nazwa = "PlayStation 5",
-                Opis = "Dyskusje o konsoli PlayStation.",
-                KategoriaForumId = 3
-            }
+new PodforumModel
+{
+    Id = 3,
+    Nazwa = "PlayStation 5",
+    Opis = "Dyskusje o konsoli PlayStation.",
+    KategoriaForumId = 3,
+    CzyAnonimowiMogaOgladac = false,
+    CzyAnonimowiMogaPisac = false
+}
         };
 
-        // Id kolejnego podforum
         private static int nastepneId = 4;
 
-        // Przygotowanie listy kategorii
         private List<SelectListItem> PobierzKategorie()
         {
             return new List<SelectListItem>
@@ -49,7 +53,6 @@ namespace ForumDlaGraczy.Controllers
             };
         }
 
-        // Przygotowanie nazw kategorii do wyświetlenia
         private void PrzygotujNazwyKategorii()
         {
             ViewBag.NazwyKategorii = new Dictionary<int, string>
@@ -138,6 +141,8 @@ namespace ForumDlaGraczy.Controllers
             podforum.Nazwa = model.Nazwa;
             podforum.Opis = model.Opis;
             podforum.KategoriaForumId = model.KategoriaForumId;
+            podforum.CzyAnonimowiMogaOgladac = model.CzyAnonimowiMogaOgladac;
+            podforum.CzyAnonimowiMogaPisac = model.CzyAnonimowiMogaPisac;
 
             TempData["Komunikat"] = "Podforum zostało zmienione!";
 

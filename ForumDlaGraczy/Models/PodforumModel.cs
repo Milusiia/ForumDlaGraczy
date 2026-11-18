@@ -18,5 +18,12 @@ namespace ForumDlaGraczy.Models
         [Required(ErrorMessage = "Wybierz kategorię.")]
         [Display(Name = "Kategoria")]
         public int? KategoriaForumId { get; set; }
+
+        // Uprawnienia użytkowników niezalogowanych
+        [Display(Name = "Anonimowi mogą przeglądać wiadomości")]
+        public bool CzyAnonimowiMogaOgladac { get; set; } = true;
+
+        [Display(Name = "Anonimowi mogą publikować wiadomości")]
+        public bool CzyAnonimowiMogaPisac { get; set; } = false;
     }
 }
