@@ -1,30 +1,49 @@
 ﻿@model ForumDlaGraczy.Models.OgloszenieModel
 
-<h2>Dodawanie ogłoszenia</h2>
-
-@if (ViewBag.Komunikat != null)
-{
-    <p>@ViewBag.Komunikat</p>
+@{
+    ViewData["Title"] = "Dodaj ogłoszenie";
 }
 
-<form asp-controller="Ogloszenia" asp-action="Dodaj" method="post">
+<div class="formularz-container">
 
-    <div>
-        <label asp-for="Tytul"></label>
-        <input asp-for="Tytul" />
-        <span asp-validation-for="Tytul"></span>
+    <div class="formularz-panel">
+
+        <div class="formularz-naglowek">
+            <i class="fa-solid fa-bullhorn"></i>
+            <h2>Dodawanie ogłoszenia</h2>
+            <p>Podziel się ważnymi informacjami ze społecznością graczy.</p>
+        </div>
+
+        @if (ViewBag.Komunikat != null)
+        {
+            <div class="komunikat-formularza">
+                @ViewBag.Komunikat
+            </div>
+        }
+
+        <form asp-controller="Ogloszenia" asp-action="Dodaj" method="post">
+
+            <div class="pole-formularza">
+                <label asp-for="Tytul">Tytuł ogłoszenia</label>
+                <input asp-for="Tytul" placeholder="Wpisz tytuł ogłoszenia..." />
+                <span asp-validation-for="Tytul"></span>
+            </div>
+
+            <div class="pole-formularza">
+                <label asp-for="Tresc">Treść ogłoszenia</label>
+                <textarea asp-for="Tresc" placeholder="Wpisz treść ogłoszenia..."></textarea>
+                <span asp-validation-for="Tresc"></span>
+            </div>
+
+            <div class="przyciski-formularza">
+                <button type="submit" class="przycisk-dodaj">
+                    <i class="fa-solid fa-plus"></i>
+                    Dodaj ogłoszenie
+                </button>
+            </div>
+
+        </form>
+
     </div>
 
-    <br />
-
-    <div>
-        <label asp-for="Tresc"></label>
-        <textarea asp-for="Tresc" rows="5"></textarea>
-        <span asp-validation-for="Tresc"></span>
-    </div>
-
-    <br />
-
-    <button type="submit">Dodaj ogłoszenie</button>
-
-</form>
+</div>

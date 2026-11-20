@@ -1,30 +1,49 @@
 ﻿@model ForumDlaGraczy.Models.KategoriaForumModel
 
-<h2>Dodawanie kategorii forum</h2>
-
-@if (ViewBag.Komunikat != null)
-{
-    <p>@ViewBag.Komunikat</p>
+@{
+    ViewData["Title"] = "Dodaj kategorię";
 }
 
-<form asp-controller="Kategorie" asp-action="Dodaj" method="post">
+<div class="formularz-container">
 
-    <div>
-        <label asp-for="Nazwa"></label>
-        <input asp-for="Nazwa" />
-        <span asp-validation-for="Nazwa"></span>
+    <div class="formularz-panel">
+
+        <div class="formularz-naglowek">
+            <i class="fa-solid fa-folder-plus"></i>
+            <h2>Dodawanie kategorii</h2>
+            <p>Utwórz nową kategorię dla społeczności graczy.</p>
+        </div>
+
+        @if (ViewBag.Komunikat != null)
+        {
+            <div class="komunikat-formularza">
+                @ViewBag.Komunikat
+            </div>
+        }
+
+        <form asp-controller="Kategorie" asp-action="Dodaj" method="post">
+
+            <div class="pole-formularza">
+                <label asp-for="Nazwa">Nazwa kategorii</label>
+                <input asp-for="Nazwa" placeholder="Wpisz nazwę kategorii..." />
+                <span asp-validation-for="Nazwa"></span>
+            </div>
+
+            <div class="pole-formularza">
+                <label asp-for="Opis">Opis kategorii</label>
+                <textarea asp-for="Opis" placeholder="Opisz, czego będzie dotyczyć kategoria..."></textarea>
+                <span asp-validation-for="Opis"></span>
+            </div>
+
+            <div class="przyciski-formularza">
+                <button type="submit" class="przycisk-dodaj">
+                    <i class="fa-solid fa-plus"></i>
+                    Dodaj kategorię
+                </button>
+            </div>
+
+        </form>
+
     </div>
 
-    <br />
-
-    <div>
-        <label asp-for="Opis"></label>
-        <textarea asp-for="Opis"></textarea>
-        <span asp-validation-for="Opis"></span>
-    </div>
-
-    <br />
-
-    <button type="submit">Dodaj kategorię</button>
-
-</form>
+</div>

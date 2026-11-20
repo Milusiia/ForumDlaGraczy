@@ -179,3 +179,185 @@ body {
   transform: translateY(-5px);
   box-shadow: 0 15px 35px rgba(123, 97, 255, 0.15);
 }
+
+/* --- FORMULARZE - CZĘŚĆ B --- */
+
+/* --- GŁÓWNY KONTENER FORMULARZA --- */
+
+.formularz-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 50px 20px;
+    min-height: 70vh;
+}
+
+/* --- PANEL FORMULARZA --- */
+
+.formularz-panel {
+    width: 100%;
+    max-width: 650px;
+    background: linear-gradient(145deg, #161824 0%, #0f1018 100%);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 3px solid #00ffa3;
+    border-radius: 12px;
+    padding: 35px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* --- NAGŁÓWEK FORMULARZA --- */
+
+.formularz-naglowek {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+    .formularz-naglowek i {
+        font-size: 35px;
+        color: #00ffa3;
+        margin-bottom: 15px;
+        text-shadow: 0 0 15px rgba(0, 255, 163, 0.4);
+    }
+
+    .formularz-naglowek h2 {
+        color: #00ffa3;
+        font-size: 25px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .formularz-naglowek p {
+        color: #94a3b8;
+        font-size: 14px;
+    }
+
+/* --- POLA FORMULARZA --- */
+
+.pole-formularza {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+}
+
+    .pole-formularza label {
+        color: #e2e8f0;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    /* --- WYGLĄD INPUTÓW, TEXTAREA I SELECT --- */
+
+    .pole-formularza input,
+    .pole-formularza textarea,
+    .pole-formularza select {
+        width: 100%;
+        background-color: #1a1c29;
+        color: #e2e8f0;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 13px 15px;
+        font-size: 14px;
+        outline: none;
+        transition: all 0.3s ease;
+    }
+
+    /* --- POLE OPISU --- */
+
+    .pole-formularza textarea {
+        min-height: 130px;
+        resize: vertical;
+    }
+
+        /* --- EFEKT AKTYWNEGO POLA --- */
+
+        .pole-formularza input:focus,
+        .pole-formularza textarea:focus,
+        .pole-formularza select:focus {
+            border-color: #00ffa3;
+            box-shadow: 0 0 15px rgba(0, 255, 163, 0.15);
+            background-color: #13141c;
+        }
+
+        /* --- TEKST POMOCNICZY W POLACH --- */
+
+        .pole-formularza input::placeholder,
+        .pole-formularza textarea::placeholder {
+            color: #64748b;
+        }
+
+    /* --- OPCJE WYBORU KATEGORII --- */
+
+    .pole-formularza select option {
+        background-color: #1a1c29;
+        color: #e2e8f0;
+    }
+
+    /* --- KOMUNIKATY WALIDACJI --- */
+
+    .pole-formularza span {
+        color: #ff6b6b;
+        font-size: 13px;
+        margin-top: 6px;
+    }
+
+/* --- PRZYCISKI FORMULARZA --- */
+
+.przyciski-formularza {
+    display: flex;
+    justify-content: center;
+    margin-top: 35px;
+}
+
+/* --- PRZYCISK DODAWANIA --- */
+
+.przycisk-dodaj {
+    background-color: #00ffa3;
+    color: #0d0e15;
+    border: none;
+    border-radius: 8px;
+    padding: 13px 30px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    .przycisk-dodaj i {
+        margin-right: 8px;
+    }
+
+    /* --- EFEKT NAJECHANIA NA PRZYCISK --- */
+
+    .przycisk-dodaj:hover {
+        background-color: #7b61ff;
+        color: white;
+        box-shadow: 0 0 20px rgba(123, 97, 255, 0.3);
+        transform: translateY(-3px);
+    }
+
+/* --- KOMUNIKAT O WYKONANEJ OPERACJI --- */
+
+.komunikat-formularza {
+    background-color: rgba(0, 255, 163, 0.1);
+    border: 1px solid #00ffa3;
+    color: #00ffa3;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+/* --- DOSTOSOWANIE FORMULARZA DO TELEFONÓW --- */
+
+@media (max-width: 600px) {
+    .formularz-panel {
+        padding: 25px 20px;
+    }
+
+    .formularz-naglowek h2 {
+        font-size: 21px;
+    }
+
+    .przycisk-dodaj {
+        width: 100%;
+    }
+}

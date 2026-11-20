@@ -1,38 +1,57 @@
 ﻿@model ForumDlaGraczy.Models.PrzypisanieModeratoraModel
 
-<h2>Przypisywanie moderatora do podforum</h2>
-
-@if (ViewBag.Komunikat != null)
-{
-    <p>@ViewBag.Komunikat</p>
+@{
+    ViewData["Title"] = "Przypisz moderatora";
 }
 
-<form asp-controller="Moderatorzy" asp-action="Dodaj" method="post">
+<div class="formularz-container">
 
-    <div>
-        <label asp-for="UzytkownikId"></label>
+    <div class="formularz-panel">
 
-        <select asp-for="UzytkownikId" asp-items="ViewBag.Uzytkownicy">
-            <option value="">-- Wybierz użytkownika --</option>
-        </select>
+        <div class="formularz-naglowek">
+            <i class="fa-solid fa-user-shield"></i>
+            <h2>Przypisywanie moderatora</h2>
+            <p>Wybierz użytkownika i podforum, którym będzie zarządzać.</p>
+        </div>
 
-        <span asp-validation-for="UzytkownikId"></span>
+        @if (ViewBag.Komunikat != null)
+        {
+            <div class="komunikat-formularza">
+                @ViewBag.Komunikat
+            </div>
+        }
+
+        <form asp-controller="Moderatorzy" asp-action="Dodaj" method="post">
+
+            <div class="pole-formularza">
+                <label asp-for="UzytkownikId">Wybierz użytkownika</label>
+
+                <select asp-for="UzytkownikId" asp-items="ViewBag.Uzytkownicy">
+                    <option value="">-- Wybierz użytkownika --</option>
+                </select>
+
+                <span asp-validation-for="UzytkownikId"></span>
+            </div>
+
+            <div class="pole-formularza">
+                <label asp-for="PodforumId">Wybierz podforum</label>
+
+                <select asp-for="PodforumId" asp-items="ViewBag.Podfora">
+                    <option value="">-- Wybierz podforum --</option>
+                </select>
+
+                <span asp-validation-for="PodforumId"></span>
+            </div>
+
+            <div class="przyciski-formularza">
+                <button type="submit" class="przycisk-dodaj">
+                    <i class="fa-solid fa-user-plus"></i>
+                    Przypisz moderatora
+                </button>
+            </div>
+
+        </form>
+
     </div>
 
-    <br />
-
-    <div>
-        <label asp-for="PodforumId"></label>
-
-        <select asp-for="PodforumId" asp-items="ViewBag.Podfora">
-            <option value="">-- Wybierz podforum --</option>
-        </select>
-
-        <span asp-validation-for="PodforumId"></span>
-    </div>
-
-    <br />
-
-    <button type="submit">Przypisz moderatora</button>
-
-</form>
+</div>

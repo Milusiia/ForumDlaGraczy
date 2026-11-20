@@ -1,42 +1,59 @@
 ﻿@model ForumDlaGraczy.Models.PodforumModel
 
-<h2>Dodawanie podforum</h2>
-
-@if (ViewBag.Komunikat != null)
-{
-    <p>@ViewBag.Komunikat</p>
+@{
+    ViewData["Title"] = "Dodaj podforum";
 }
 
-<form asp-controller="Podfora" asp-action="Dodaj" method="post">
+<div class="formularz-container">
 
-    <div>
-        <label asp-for="Nazwa"></label>
-        <input asp-for="Nazwa" />
-        <span asp-validation-for="Nazwa"></span>
+    <div class="formularz-panel">
+
+        <div class="formularz-naglowek">
+            <i class="fa-solid fa-gamepad"></i>
+            <h2>Dodawanie podforum</h2>
+            <p>Utwórz nowe miejsce do rozmów dla społeczności graczy.</p>
+        </div>
+
+        @if (ViewBag.Komunikat != null)
+        {
+            <div class="komunikat-formularza">
+                @ViewBag.Komunikat
+            </div>
+        }
+
+        <form asp-controller="Podfora" asp-action="Dodaj" method="post">
+
+            <div class="pole-formularza">
+                <label asp-for="Nazwa">Nazwa podforum</label>
+                <input asp-for="Nazwa" placeholder="Wpisz nazwę podforum..." />
+                <span asp-validation-for="Nazwa"></span>
+            </div>
+
+            <div class="pole-formularza">
+                <label asp-for="Opis">Opis podforum</label>
+                <textarea asp-for="Opis" placeholder="Opisz, czego będzie dotyczyć podforum..."></textarea>
+                <span asp-validation-for="Opis"></span>
+            </div>
+
+            <div class="pole-formularza">
+                <label asp-for="KategoriaForumId">Kategoria forum</label>
+
+                <select asp-for="KategoriaForumId" asp-items="ViewBag.Kategorie">
+                    <option value="">-- Wybierz kategorię --</option>
+                </select>
+
+                <span asp-validation-for="KategoriaForumId"></span>
+            </div>
+
+            <div class="przyciski-formularza">
+                <button type="submit" class="przycisk-dodaj">
+                    <i class="fa-solid fa-plus"></i>
+                    Dodaj podforum
+                </button>
+            </div>
+
+        </form>
+
     </div>
 
-    <br />
-
-    <div>
-        <label asp-for="Opis"></label>
-        <textarea asp-for="Opis"></textarea>
-        <span asp-validation-for="Opis"></span>
-    </div>
-
-    <br />
-
-    <div>
-        <label asp-for="KategoriaForumId"></label>
-
-        <select asp-for="KategoriaForumId" asp-items="ViewBag.Kategorie">
-            <option value="">-- Wybierz kategorię --</option>
-        </select>
-
-        <span asp-validation-for="KategoriaForumId"></span>
-    </div>
-
-    <br />
-
-    <button type="submit">Dodaj podforum</button>
-
-</form>
+</div>

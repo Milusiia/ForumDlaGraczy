@@ -1,33 +1,58 @@
 ﻿@model ForumDlaGraczy.Models.PrzypiecieWatkuModel
 
-<h2>Przypinanie wątku</h2>
-
-@if (ViewBag.Komunikat != null)
-{
-    <p>@ViewBag.Komunikat</p>
+@{
+    ViewData["Title"] = "Przypinanie wątku";
 }
 
-<form asp-controller="PrzypieciaWatkow" asp-action="Edytuj" method="post">
+<div class="formularz-container">
 
-    <div>
-        <label asp-for="WatekId"></label>
+    <div class="formularz-panel">
 
-        <select asp-for="WatekId" asp-items="ViewBag.Watki">
-            <option value="">-- Wybierz wątek --</option>
-        </select>
+        <div class="formularz-naglowek">
+            <i class="fa-solid fa-thumbtack"></i>
+            <h2>Przypinanie wątku</h2>
+            <p>Wybierz wątek i zdecyduj, czy ma być przypięty na forum.</p>
+        </div>
 
-        <span asp-validation-for="WatekId"></span>
+        @if (ViewBag.Komunikat != null)
+        {
+            <div class="komunikat-formularza">
+                @ViewBag.Komunikat
+            </div>
+        }
+
+        <form asp-controller="PrzypieciaWatkow" asp-action="Edytuj" method="post">
+
+            <div class="pole-formularza">
+                <label asp-for="WatekId">Wybierz wątek</label>
+
+                <select asp-for="WatekId" asp-items="ViewBag.Watki">
+                    <option value="">-- Wybierz wątek --</option>
+                </select>
+
+                <span asp-validation-for="WatekId"></span>
+            </div>
+
+            <div class="pole-formularza">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <input asp-for="CzyPrzypiety" style="width: auto;" />
+                    <label asp-for="CzyPrzypiety" style="margin-bottom: 0;">
+                        Przypnij ten wątek
+                    </label>
+                </div>
+
+                <span asp-validation-for="CzyPrzypiety"></span>
+            </div>
+
+            <div class="przyciski-formularza">
+                <button type="submit" class="przycisk-dodaj">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    Zapisz zmiany
+                </button>
+            </div>
+
+        </form>
+
     </div>
 
-    <br />
-
-    <div>
-        <input asp-for="CzyPrzypiety" />
-        <label asp-for="CzyPrzypiety"></label>
-    </div>
-
-    <br />
-
-    <button type="submit">Zapisz zmiany</button>
-
-</form>
+</div>
