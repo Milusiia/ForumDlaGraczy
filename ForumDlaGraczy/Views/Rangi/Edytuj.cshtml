@@ -1,38 +1,57 @@
 ﻿@model ForumDlaGraczy.Models.ZmianaRangiModel
 
-<h2>Zmiana rangi użytkownika</h2>
+<div class="formularz-container">
+    <div class="formularz-panel">
 
-@if (ViewBag.Komunikat != null)
-{
-    <p>@ViewBag.Komunikat</p>
-}
+        <div class="formularz-naglowek">
+            <h2><i class="fas fa-user-shield"></i> Zmiana rangi użytkownika</h2>
+            <p>Wybierz użytkownika i przypisz mu odpowiednią rangę.</p>
+        </div>
 
-<form asp-controller="Rangi" asp-action="Edytuj" method="post">
+        @if (ViewBag.Komunikat != null)
+        {
+            <div class="komunikat-formularza">
+                @ViewBag.Komunikat
+            </div>
+        }
 
-    <div>
-        <label asp-for="UzytkownikId"></label>
+        <form asp-controller="Rangi" asp-action="Edytuj" method="post">
 
-        <select asp-for="UzytkownikId" asp-items="ViewBag.Uzytkownicy">
-            <option value="">-- Wybierz użytkownika --</option>
-        </select>
+            <div asp-validation-summary="ModelOnly"></div>
 
-        <span asp-validation-for="UzytkownikId"></span>
+            <div class="pole-formularza">
+                <label asp-for="UzytkownikId">Użytkownik</label>
+
+                <select asp-for="UzytkownikId" asp-items="ViewBag.Uzytkownicy">
+                    <option value="">-- Wybierz użytkownika --</option>
+                </select>
+
+                <span asp-validation-for="UzytkownikId"></span>
+            </div>
+
+            <div class="pole-formularza">
+                <label asp-for="Ranga">Ranga</label>
+
+                <select asp-for="Ranga" asp-items="ViewBag.Rangi">
+                    <option value="">-- Wybierz rangę --</option>
+                </select>
+
+                <span asp-validation-for="Ranga"></span>
+            </div>
+
+            <div class="przyciski-formularza">
+                <button type="submit" class="przycisk-dodaj">
+                    <i class="fas fa-save"></i> Zmień rangę
+                </button>
+
+                <a asp-controller="PanelAdministracyjny"
+                   asp-action="Index"
+                   class="przycisk-wiadomosci">
+                    <i class="fas fa-arrow-left"></i> Powrót do panelu
+                </a>
+            </div>
+
+        </form>
+
     </div>
-
-    <br />
-
-    <div>
-        <label asp-for="Ranga"></label>
-
-        <select asp-for="Ranga" asp-items="ViewBag.Rangi">
-            <option value="">-- Wybierz rangę --</option>
-        </select>
-
-        <span asp-validation-for="Ranga"></span>
-    </div>
-
-    <br />
-
-    <button type="submit">Zmień rangę</button>
-
-</form>
+</div>

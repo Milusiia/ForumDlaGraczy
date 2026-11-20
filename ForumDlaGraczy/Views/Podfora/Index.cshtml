@@ -1,103 +1,148 @@
 ﻿@model IEnumerable<ForumDlaGraczy.Models.PodforumModel>
 
 @{
-    var nazwyKategorii = ViewBag.NazwyKategorii as Dictionary<int, string>;
+    ViewData["Title"] = "Lista podforów";
+
+    var nazwyKategorii =
+        ViewBag.NazwyKategorii as Dictionary<int, string>;
 }
 
-<h2>Lista podforów</h2>
+<div class="formularz-container tabela-szeroka">
+    <div class="formularz-panel">
 
-@if (TempData["Komunikat"] != null)
-{
-    <p>@TempData["Komunikat"]</p>
-}
+        <div class="formularz-naglowek">
+            <h2><i class="fa-solid fa-comments"></i> Lista podforów</h2>
+            <p>Zarządzaj podforami i ustawieniami dostępu do nich.</p>
+        </div>
 
-<p>
-    <a asp-controller="Podfora" asp-action="Dodaj">
-        Dodaj nowe podforum
-    </a>
-</p>
+        @if (TempData["Komunikat"] != null)
+        {
+            <div class="komunikat-formularza">
+                @TempData["Komunikat"]
+            </div>
+        }
 
-@if (!Model.Any())
-{
-    <p>Nie ma jeszcze żadnych podforów.</p>
-}
-else
-{
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nazwa podforum</th>
-                <th>Opis</th>
-                <th>Kategoria</th>
-                <th>Anonimowi mogą przeglądać</th>
-                <th>Anonimowi mogą pisać</th>
-                <th>Akcje</th>
-            </tr>
-        </thead>
+        <div class="przyciski-formularza">
+            <a asp-controller="Podfora"
+               asp-action="Dodaj"
+               class="przycisk-dodaj">
+                <i class="fa-solid fa-plus"></i>
+                Dodaj nowe podforum
+            </a>
+        </div>
 
-        <tbody>
-            @foreach (var podforum in Model)
-            {
-                var idKategorii = podforum.KategoriaForumId ?? 0;
+        @if (!Model.Any())
+        {
+            <div class="brak-wiadomosci">
+                <i class="fa-solid fa-comments"></i>
+                <p>Nie ma jeszcze żadnych podforów.</p>
+            </div>
+        }
+        else
+        {
+            <div class="tabela-container">
+                <table class="tabela-administracyjna">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nazwa podforum</th>
+                            <th>Opis</th>
+                            <th>Kategoria</th>
+                            <th>Anonimowi mogą przeglądać</th>
+                            <th>Anonimowi mogą pisać</th>
+                            <th>Akcje</th>
+                        </tr>
+                    </thead>
 
-                var nazwaKategorii = "Nieznana kategoria";
+                    <tbody>
+                        @foreach (var podforum in Model)
+                        {
+                            var idKategorii = podforum.KategoriaForumId ?? 0;
 
-                if (nazwyKategorii != null &&
-                    nazwyKategorii.ContainsKey(idKategorii))
-                {
-                    nazwaKategorii = nazwyKategorii[idKategorii];
-                }
+                            var nazwaKategorii = "Nieznana kategoria";
 
-                <tr>
-                    <td>@podforum.Id</td>
+                            if (nazwyKategorii != null &&
+                                nazwyKategorii.ContainsKey(idKategorii))
+                            {
+                                nazwaKategorii = nazwyKategorii[idKategorii];
+                            }
 
-                    <td>@podforum.Nazwa</td>
+                            <tr>
+                                <td>@podforum.Id</td>
 
-                    <td>@podforum.Opis</td>
+                                <td class="tytul-watku">
+                                    @podforum.Nazwa
+                                </td>
 
-                    <td>@nazwaKategorii</td>
+                                <td class="tresc-wiadomosci">
+                                    @podforum.Opis
+                                </td>
 
-                    <td>
-                        @(podforum.CzyAnonimowiMogaOgladac ? "Tak" : "Nie")
-                    </td>
+                                <td>@nazwaKategorii</td>
 
-                    <td>
-                        @(podforum.CzyAnonimowiMogaPisac ? "Tak" : "Nie")
-                    </td>
+                                <td>
+                                    @if (podforum.CzyAnonimowiMogaOgladac)
+                                    {
+                                        <span style="color: #00ffa3;">Tak</span>
+                                    }
+                                    else
+                                    {
+                                        <span style="color: #ff6b6b;">Nie</span>
+                                    }
+                                </td>
 
-                    <td>
-                        <a asp-controller="Podfora"
-                           asp-action="Edytuj"
-                           asp-route-id="@podforum.Id">
-                            Edytuj
-                        </a>
+                                <td>
+                                    @if (podforum.CzyAnonimowiMogaPisac)
+                                    {
+                                        <span style="color: #00ffa3;">Tak</span>
+                                    }
+                                    else
+                                    {
+                                        <span style="color: #ff6b6b;">Nie</span>
+                                    }
+                                </td>
 
-                        |
+                                <td>
+                                    <div class="akcje-wiadomosci">
+                                        <a asp-controller="Podfora"
+                                           asp-action="Edytuj"
+                                           asp-route-id="@podforum.Id"
+                                           class="przycisk-edytuj">
+                                            <i class="fa-solid fa-pen"></i>
+                                            Edytuj
+                                        </a>
 
-                        <form asp-controller="Podfora"
-                              asp-action="Usun"
-                              asp-route-id="@podforum.Id"
-                              method="post"
-                              style="display:inline">
+                                        <form asp-controller="Podfora"
+                                              asp-action="Usun"
+                                              asp-route-id="@podforum.Id"
+                                              method="post">
 
-                            @Html.AntiForgeryToken()
+                                            @Html.AntiForgeryToken()
 
-                            <button type="submit"
-                                    onclick="return confirm('Czy na pewno chcesz usunąć to podforum?')">
-                                Usuń
-                            </button>
+                                            <button type="submit"
+                                                    class="przycisk-usun"
+                                                    onclick="return confirm('Czy na pewno chcesz usunąć to podforum?')">
+                                                <i class="fa-solid fa-trash"></i>
+                                                Usuń
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
 
-                        </form>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+        <div class="przyciski-formularza">
+            <a asp-controller="PanelAdministracyjny"
+               asp-action="Index"
+               class="przycisk-wiadomosci">
+                <i class="fa-solid fa-arrow-left"></i>
+                Powrót do panelu administracyjnego
+            </a>
+        </div>
 
-<br />
-
-<a asp-controller="PanelAdministracyjny" asp-action="Index">
-    Powrót do panelu administracyjnego
-</a>
+    </div>
+</div>

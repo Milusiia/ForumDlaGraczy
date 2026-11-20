@@ -1,40 +1,49 @@
 ﻿@model ForumDlaGraczy.Models.EdycjaUzytkownikaModel
 
-<h2>Edytowanie użytkownika</h2>
+<div class="formularz-container">
+    <div class="formularz-panel">
 
-<div asp-validation-summary="ModelOnly"></div>
+        <div class="formularz-naglowek">
+            <h2><i class="fas fa-user-edit"></i> Edytowanie użytkownika</h2>
+            <p>Możesz tutaj zmienić nazwę użytkownika oraz adres e-mail.</p>
+        </div>
 
-<form asp-controller="Uzytkownicy"
-      asp-action="Edytuj"
-      asp-route-id="@Model.Id"
-      method="post">
+        <div asp-validation-summary="ModelOnly"></div>
 
-    @Html.AntiForgeryToken()
+        <form asp-controller="Uzytkownicy"
+              asp-action="Edytuj"
+              asp-route-id="@Model.Id"
+              method="post">
 
-    <input type="hidden" asp-for="Id" />
+            @Html.AntiForgeryToken()
 
-    <div>
-        <label asp-for="NazwaUzytkownika"></label>
-        <input asp-for="NazwaUzytkownika" />
-        <span asp-validation-for="NazwaUzytkownika"></span>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="pole-formularza">
+                <label asp-for="NazwaUzytkownika">Nazwa użytkownika</label>
+                <input asp-for="NazwaUzytkownika" />
+                <span asp-validation-for="NazwaUzytkownika"></span>
+            </div>
+
+            <div class="pole-formularza">
+                <label asp-for="Email">Adres e-mail</label>
+                <input asp-for="Email" />
+                <span asp-validation-for="Email"></span>
+            </div>
+
+            <div class="przyciski-formularza">
+                <button type="submit" class="przycisk-dodaj">
+                    <i class="fas fa-save"></i> Zapisz zmiany
+                </button>
+
+                <a asp-controller="Uzytkownicy"
+                   asp-action="Index"
+                   class="przycisk-wiadomosci">
+                    <i class="fas fa-arrow-left"></i> Powrót do listy
+                </a>
+            </div>
+
+        </form>
+
     </div>
-
-    <br />
-
-    <div>
-        <label asp-for="Email"></label>
-        <input asp-for="Email" />
-        <span asp-validation-for="Email"></span>
-    </div>
-
-    <br />
-
-    <button type="submit">Zapisz zmiany</button>
-
-</form>
-
-<br />
-
-<a asp-controller="Uzytkownicy" asp-action="Index">
-    Powrót do listy użytkowników
-</a>
+</div>

@@ -1,104 +1,128 @@
 ﻿@model IEnumerable<ForumDlaGraczy.Models.UzytkownikAplikacji>
 
-<h2>Lista użytkowników</h2>
+<div class="formularz-container tabela-szeroka">
+    <div class="formularz-panel">
 
-@if (TempData["Komunikat"] != null)
-{
-    <p>@TempData["Komunikat"]</p>
-}
+        <div class="formularz-naglowek">
+            <h2><i class="fas fa-users"></i> Lista użytkowników</h2>
+            <p>Zarządzaj kontami użytkowników zarejestrowanych na forum.</p>
+        </div>
 
-@if (!Model.Any())
-{
-    <p>Nie ma jeszcze zarejestrowanych użytkowników.</p>
-}
-else
-{
-    <table>
-        <thead>
-            <tr>
-                <th>Nazwa użytkownika</th>
-                <th>E-mail</th>
-                <th>Data rejestracji</th>
-                <th>Status konta</th>
-                <th>Akcje</th>
-            </tr>
-        </thead>
+        @if (TempData["Komunikat"] != null)
+        {
+            <div class="komunikat-formularza">
+                @TempData["Komunikat"]
+            </div>
+        }
 
-        <tbody>
-            @foreach (var uzytkownik in Model)
-            {
-                bool zablokowany =
-                    uzytkownik.LockoutEnd.HasValue &&
-                    uzytkownik.LockoutEnd.Value > DateTimeOffset.UtcNow;
+        @if (!Model.Any())
+        {
+            <div class="brak-wiadomosci">
+                <i class="fas fa-user-slash"></i>
+                <p>Nie ma jeszcze zarejestrowanych użytkowników.</p>
+            </div>
+        }
+        else
+        {
+            <div class="tabela-container">
+                <table class="tabela-administracyjna">
+                    <thead>
+                        <tr>
+                            <th>Nazwa użytkownika</th>
+                            <th>E-mail</th>
+                            <th>Data rejestracji</th>
+                            <th>Status konta</th>
+                            <th>Akcje</th>
+                        </tr>
+                    </thead>
 
-                <tr>
-                    <td>@uzytkownik.UserName</td>
-                    <td>@uzytkownik.Email</td>
-                    <td>@uzytkownik.DataRejestracji.ToString("dd.MM.yyyy")</td>
-
-                    <td>
-                        @if (zablokowany)
+                    <tbody>
+                        @foreach (var uzytkownik in Model)
                         {
-                            <span>Zablokowany</span>
+                            bool zablokowany =
+                                uzytkownik.LockoutEnd.HasValue &&
+                                uzytkownik.LockoutEnd.Value > DateTimeOffset.UtcNow;
+
+                            <tr>
+                                <td>@uzytkownik.UserName</td>
+                                <td>@uzytkownik.Email</td>
+                                <td>@uzytkownik.DataRejestracji.ToString("dd.MM.yyyy")</td>
+
+                                <td>
+                                    @if (zablokowany)
+                                    {
+                                        <span style="color: #ef4444; font-weight: 600;">
+                                            <i class="fas fa-ban"></i> Zablokowany
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span style="color: #00ffa3; font-weight: 600;">
+                                            <i class="fas fa-check-circle"></i> Aktywny
+                                        </span>
+                                    }
+                                </td>
+
+                                <td>
+                                    <a asp-controller="Uzytkownicy"
+                                       asp-action="Szczegoly"
+                                       asp-route-id="@uzytkownik.Id"
+                                       class="przycisk-wiadomosci">
+                                        <i class="fas fa-eye"></i> Szczegóły
+                                    </a>
+
+                                    <a asp-controller="Uzytkownicy"
+                                       asp-action="Edytuj"
+                                       asp-route-id="@uzytkownik.Id"
+                                       class="przycisk-edytuj">
+                                        <i class="fas fa-edit"></i> Edytuj
+                                    </a>
+
+                                    @if (zablokowany)
+                                    {
+                                        <form asp-controller="Uzytkownicy"
+                                              asp-action="Odblokuj"
+                                              asp-route-id="@uzytkownik.Id"
+                                              method="post"
+                                              style="display:inline">
+
+                                            @Html.AntiForgeryToken()
+
+                                            <button type="submit" class="przycisk-dodaj">
+                                                <i class="fas fa-unlock"></i> Odblokuj
+                                            </button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <form asp-controller="Uzytkownicy"
+                                              asp-action="Zablokuj"
+                                              asp-route-id="@uzytkownik.Id"
+                                              method="post"
+                                              style="display:inline">
+
+                                            @Html.AntiForgeryToken()
+
+                                            <button type="submit" class="przycisk-usun">
+                                                <i class="fas fa-ban"></i> Zablokuj
+                                            </button>
+                                        </form>
+                                    }
+                                </td>
+                            </tr>
                         }
-                        else
-                        {
-                            <span>Aktywny</span>
-                        }
-                    </td>
+                    </tbody>
+                </table>
+            </div>
+        }
 
-                    <td>
-                        <a asp-controller="Uzytkownicy"
-                           asp-action="Szczegoly"
-                           asp-route-id="@uzytkownik.Id">
-                            Szczegóły
-                        </a>
+        <div class="przyciski-formularza">
+            <a asp-controller="PanelAdministracyjny"
+               asp-action="Index"
+               class="przycisk-wiadomosci">
+                <i class="fas fa-arrow-left"></i> Powrót do panelu administracyjnego
+            </a>
+        </div>
 
-                        |
-
-                        <a asp-controller="Uzytkownicy"
-                           asp-action="Edytuj"
-                           asp-route-id="@uzytkownik.Id">
-                            Edytuj
-                        </a>
-
-                        |
-
-                        @if (zablokowany)
-                        {
-                            <form asp-controller="Uzytkownicy"
-                                  asp-action="Odblokuj"
-                                  asp-route-id="@uzytkownik.Id"
-                                  method="post"
-                                  style="display:inline">
-
-                                @Html.AntiForgeryToken()
-
-                                <button type="submit">
-                                    Odblokuj
-                                </button>
-
-                            </form>
-                        }
-                        else
-                        {
-                            <form asp-controller="Uzytkownicy"
-                                  asp-action="Zablokuj"
-                                  asp-route-id="@uzytkownik.Id"
-                                  method="post"
-                                  style="display:inline">
-
-                                @Html.AntiForgeryToken()
-
-                                <button type="submit">
-                                    Zablokuj
-                                </button>
-
-                            </form>
-                        }
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+    </div>
+</div>

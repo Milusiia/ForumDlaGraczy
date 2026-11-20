@@ -1,40 +1,45 @@
 ﻿@model ForumDlaGraczy.Models.PrzypisanieModeratoraModel
 
-<h2>Przypisywanie moderatora do podforum</h2>
-
-<div asp-validation-summary="ModelOnly"></div>
+@{
+    ViewData["Title"] = "Przypisz moderatora";
+}
 
 @if (ViewBag.Komunikat != null)
 {
     <p>@ViewBag.Komunikat</p>
 }
 
-<form asp-controller="Moderatorzy" asp-action="Dodaj" method="post">
+        <form asp-controller="Moderatorzy" asp-action="Dodaj" method="post">
 
-    <div>
-        <label asp-for="UzytkownikId"></label>
+            <div class="pole-formularza">
+                <label asp-for="UzytkownikId">Wybierz użytkownika</label>
 
-        <select asp-for="UzytkownikId" asp-items="ViewBag.Uzytkownicy">
-            <option value="">-- Wybierz użytkownika --</option>
-        </select>
+                <select asp-for="UzytkownikId" asp-items="ViewBag.Uzytkownicy">
+                    <option value="">-- Wybierz użytkownika --</option>
+                </select>
 
-        <span asp-validation-for="UzytkownikId"></span>
+                <span asp-validation-for="UzytkownikId"></span>
+            </div>
+
+            <div class="pole-formularza">
+                <label asp-for="PodforumId">Wybierz podforum</label>
+
+                <select asp-for="PodforumId" asp-items="ViewBag.Podfora">
+                    <option value="">-- Wybierz podforum --</option>
+                </select>
+
+                <span asp-validation-for="PodforumId"></span>
+            </div>
+
+            <div class="przyciski-formularza">
+                <button type="submit" class="przycisk-dodaj">
+                    <i class="fa-solid fa-user-plus"></i>
+                    Przypisz moderatora
+                </button>
+            </div>
+
+        </form>
+
     </div>
 
-    <br />
-
-    <div>
-        <label asp-for="PodforumId"></label>
-
-        <select asp-for="PodforumId" asp-items="ViewBag.Podfora">
-            <option value="">-- Wybierz podforum --</option>
-        </select>
-
-        <span asp-validation-for="PodforumId"></span>
-    </div>
-
-    <br />
-
-    <button type="submit">Przypisz moderatora</button>
-
-</form>
+</div>

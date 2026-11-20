@@ -1,58 +1,99 @@
 ﻿@model IEnumerable<ForumDlaGraczy.Models.WatekAdministracyjnyModel>
 
-<h2>Zarządzanie wątkami</h2>
+@{
+    ViewData["Title"] = "Zarządzanie wątkami";
+}
 
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Tytuł wątku</th>
-            <th>Autor</th>
-            <th>Forum</th>
-            <th>Data utworzenia</th>
-            <th>Odsłony</th>
-            <th>Odpowiedzi</th>
-            <th>Przypięty</th>
-            <th>Akcje</th>
-        </tr>
-    </thead>
+<div class="zarzadzanie-container">
 
-    <tbody>
-        @foreach (var watek in Model)
-        {
-            <tr>
-                <td>@watek.Id</td>
+    <div class="zarzadzanie-panel">
 
-                <td>@watek.Tytul</td>
+        <div class="zarzadzanie-naglowek">
+            <i class="fa-solid fa-comments"></i>
+            <h2>Zarządzanie wątkami</h2>
+            <p>Przeglądaj wątki i sprawdzaj aktywność użytkowników forum.</p>
+        </div>
 
-                <td>@watek.Autor</td>
+        <div class="tabela-container">
 
-                <td>@watek.Podforum</td>
+            <table class="tabela-administracyjna">
 
-                <td>@watek.DataUtworzenia.ToString("dd.MM.yyyy")</td>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tytuł wątku</th>
+                        <th>Autor</th>
+                        <th>Forum</th>
+                        <th>Data utworzenia</th>
+                        <th>Odsłony</th>
+                        <th>Odpowiedzi</th>
+                        <th>Przypięty</th>
+                        <th>Akcje</th>
+                    </tr>
+                </thead>
 
-                <td>@watek.LiczbaOdslon</td>
+                <tbody>
+                    @foreach (var watek in Model)
+                    {
+                        <tr>
+                            <td>@watek.Id</td>
 
-                <td>@watek.LiczbaOdpowiedzi</td>
+                            <td class="tytul-watku">
+                                @watek.Tytul
+                            </td>
 
-                <td>
-                    @(watek.CzyPrzypiety ? "Tak" : "Nie")
-                </td>
+                            <td>@watek.Autor</td>
 
-                <td>
-                    <a asp-controller="AdministracjaTresci"
-                       asp-action="Wiadomosci"
-                       asp-route-id="@watek.Id">
-                        Zobacz wiadomości
-                    </a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                            <td>@watek.Podforum</td>
 
-<br />
+                            <td class="data-watku">
+                                @watek.DataUtworzenia.ToString("dd.MM.yyyy")
+                            </td>
 
-<a asp-controller="PanelAdministracyjny" asp-action="Index">
-    Powrót do panelu administracyjnego
-</a>
+                            <td>@watek.LiczbaOdslon</td>
+
+                            <td>@watek.LiczbaOdpowiedzi</td>
+
+                            <td>
+                                @if (watek.CzyPrzypiety)
+                                {
+                                    <span class="status-przypiety">Tak</span>
+                                }
+                                else
+                                {
+                                    <span class="status-nieprzypiety">Nie</span>
+                                }
+                            </td>
+
+                            <td>
+                                <a asp-controller="AdministracjaTresci"
+                                   asp-action="Wiadomosci"
+                                   asp-route-id="@watek.Id"
+                                   class="przycisk-wiadomosci">
+
+                                    <i class="fa-solid fa-eye"></i>
+                                    Wiadomości
+
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <div class="powrot-administracja">
+            <a asp-controller="PanelAdministracyjny"
+               asp-action="Index">
+
+                <i class="fa-solid fa-arrow-left"></i>
+                Powrót do panelu administracyjnego
+
+            </a>
+        </div>
+
+    </div>
+
+</div>

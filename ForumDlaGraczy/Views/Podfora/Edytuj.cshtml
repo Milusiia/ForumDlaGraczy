@@ -1,60 +1,61 @@
 ﻿@model ForumDlaGraczy.Models.PodforumModel
 
-<h2>Edytowanie podforum</h2>
-
-@if (ViewBag.Komunikat != null)
-{
-    <p>@ViewBag.Komunikat</p>
+@{
+    ViewData["Title"] = "Edytuj podforum";
 }
 
-<form asp-controller="Podfora" asp-action="Edytuj" method="post">
+<div class="formularz-container">
 
-    <input type="hidden" asp-for="Id" />
+    <div class="formularz-panel">
 
-    <div>
-        <label asp-for="Nazwa"></label>
-        <input asp-for="Nazwa" />
-        <span asp-validation-for="Nazwa"></span>
+        <div class="formularz-naglowek">
+            <i class="fa-solid fa-pen-to-square"></i>
+            <h2>Edytowanie podforum</h2>
+            <p>Wprowadź zmiany w wybranym podforum.</p>
+        </div>
+
+        @if (ViewBag.Komunikat != null)
+        {
+            <div class="komunikat-formularza">
+                @ViewBag.Komunikat
+            </div>
+        }
+
+        <form asp-controller="Podfora" asp-action="Edytuj" method="post">
+
+            <input type="hidden" asp-for="Id" />
+
+            <div class="pole-formularza">
+                <label asp-for="Nazwa">Nazwa podforum</label>
+                <input asp-for="Nazwa" placeholder="Wpisz nazwę podforum..." />
+                <span asp-validation-for="Nazwa"></span>
+            </div>
+
+            <div class="pole-formularza">
+                <label asp-for="Opis">Opis podforum</label>
+                <textarea asp-for="Opis" placeholder="Opisz, czego dotyczy podforum..."></textarea>
+                <span asp-validation-for="Opis"></span>
+            </div>
+
+            <div class="pole-formularza">
+                <label asp-for="KategoriaForumId">Kategoria forum</label>
+
+                <select asp-for="KategoriaForumId" asp-items="ViewBag.Kategorie">
+                    <option value="">-- Wybierz kategorię --</option>
+                </select>
+
+                <span asp-validation-for="KategoriaForumId"></span>
+            </div>
+
+            <div class="przyciski-formularza">
+                <button type="submit" class="przycisk-dodaj">
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    Zapisz zmiany
+                </button>
+            </div>
+
+        </form>
+
     </div>
 
-    <br />
-
-    <div>
-        <label asp-for="Opis"></label>
-        <textarea asp-for="Opis"></textarea>
-        <span asp-validation-for="Opis"></span>
-    </div>
-
-    <br />
-
-    <div>
-        <label asp-for="KategoriaForumId"></label>
-
-        <select asp-for="KategoriaForumId" asp-items="ViewBag.Kategorie">
-            <option value="">-- Wybierz kategorię --</option>
-        </select>
-
-        <span asp-validation-for="KategoriaForumId"></span>
-    </div>
-
-    <br />
-
-    <br />
-
-    <h3>Uprawnienia użytkowników anonimowych</h3>
-
-    <div>
-        <input asp-for="CzyAnonimowiMogaOgladac" />
-        <label asp-for="CzyAnonimowiMogaOgladac"></label>
-    </div>
-
-    <div>
-        <input asp-for="CzyAnonimowiMogaPisac" />
-        <label asp-for="CzyAnonimowiMogaPisac"></label>
-    </div>
-
-    <br />
-
-    <button type="submit">Zapisz zmiany</button>
-
-</form>
+</div>
