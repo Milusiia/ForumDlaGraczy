@@ -1,0 +1,66 @@
+﻿@model IEnumerable<ForumDlaGraczy.Models.OgloszenieModel>
+
+<h2>Lista ogłoszeń</h2>
+
+@if (TempData["Komunikat"] != null)
+{
+    <p>@TempData["Komunikat"]</p>
+}
+
+<p>
+    <a asp-controller="Ogloszenia" asp-action="Dodaj">
+        Dodaj nowe ogłoszenie
+    </a>
+</p>
+
+@if (!Model.Any())
+{
+    <p>Nie ma jeszcze żadnych ogłoszeń.</p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Tytuł</th>
+                <th>Treść</th>
+                <th>Akcje</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var ogloszenie in Model)
+            {
+                <tr>
+                    <td>@ogloszenie.Id</td>
+                    <td>@ogloszenie.Tytul</td>
+                    <td>@ogloszenie.Tresc</td>
+
+                    <td>
+                        <a asp-controller="Ogloszenia"
+                           asp-action="Edytuj"
+                           asp-route-id="@ogloszenie.Id">
+                            Edytuj
+                        </a>
+
+                        <form asp-controller="Ogloszenia"
+                              asp-action="Usun"
+                              asp-route-id="@ogloszenie.Id"
+                              method="post"
+                              style="display:inline">
+
+                            @Html.AntiForgeryToken()
+
+                            <button type="submit"
+                                    onclick="return confirm('Czy na pewno chcesz usunąć to ogłoszenie?')">
+                                Usuń
+                            </button>
+
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

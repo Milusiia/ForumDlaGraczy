@@ -1,0 +1,40 @@
+﻿@model ForumDlaGraczy.Models.EdycjaUzytkownikaModel
+
+<h2>Edytowanie użytkownika</h2>
+
+<div asp-validation-summary="ModelOnly"></div>
+
+<form asp-controller="Uzytkownicy"
+      asp-action="Edytuj"
+      asp-route-id="@Model.Id"
+      method="post">
+
+    @Html.AntiForgeryToken()
+
+    <input type="hidden" asp-for="Id" />
+
+    <div>
+        <label asp-for="NazwaUzytkownika"></label>
+        <input asp-for="NazwaUzytkownika" />
+        <span asp-validation-for="NazwaUzytkownika"></span>
+    </div>
+
+    <br />
+
+    <div>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+
+    <br />
+
+    <button type="submit">Zapisz zmiany</button>
+
+</form>
+
+<br />
+
+<a asp-controller="Uzytkownicy" asp-action="Index">
+    Powrót do listy użytkowników
+</a>

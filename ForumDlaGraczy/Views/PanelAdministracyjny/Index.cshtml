@@ -1,0 +1,76 @@
+﻿<h2>Panel administracyjny</h2>
+
+<p>Witaj w panelu administracyjnym forum dla graczy!</p>
+
+<h3>Zarządzanie forum</h3>
+
+<ul>
+    <li>
+        <a asp-controller="Kategorie" asp-action="Index">
+            Zarządzanie kategoriami
+        </a>
+    </li>
+
+    <li>
+        <a asp-controller="Podfora" asp-action="Index">
+            Zarządzanie podforami
+        </a>
+    </li>
+
+    <li>
+        <a asp-controller="Ogloszenia" asp-action="Index">
+            Zarządzanie ogłoszeniami
+        </a>
+    </li>
+
+    <li>
+        <a asp-controller="Moderatorzy" asp-action="Index">
+            Zarządzanie moderatorami
+        </a>
+    </li>
+
+    <li>
+        <a asp-controller="Statystyki" asp-action="Index">
+            Statystyki forum
+        </a>
+    </li>
+
+    <li>
+        <a asp-controller="AdministracjaTresci" asp-action="Index">
+            Zarządzanie wątkami i wiadomościami
+        </a>
+    </li>
+</ul>
+
+
+<h3>Moderacja</h3>
+
+<ul>
+    <li>
+        <a asp-controller="Zgloszenia" asp-action="Index">
+            Zgłoszenia wiadomości
+        </a>
+    </li>
+
+    <li>
+        <a asp-controller="PrzypieciaWatkow" asp-action="Edytuj">
+            Przypinanie wątków
+        </a>
+    </li>
+</ul>
+
+<h3>Użytkownicy</h3>
+
+<li>
+    <a asp-controller="Uzytkownicy" asp-action="Index">
+        Zarządzanie użytkownikami
+    </a>
+</li>
+
+<ul>
+    <li>
+        <a asp-controller="Rangi" asp-action="Edytuj">
+            Zarządzanie rangami
+        </a>
+    </li>
+</ul>

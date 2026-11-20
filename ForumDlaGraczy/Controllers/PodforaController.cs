@@ -6,18 +6,74 @@ namespace ForumDlaGraczy.Controllers
 {
     public class PodforaController : Controller
     {
+        // Przykładowa lista podforów
+        private static List<PodforumModel> podfora = new List<PodforumModel>
+        {
+            new PodforumModel
+{
+    Id = 1,
+    Nazwa = "Minecraft",
+    Opis = "Dyskusje o grze Minecraft.",
+    KategoriaForumId = 2,
+    CzyAnonimowiMogaOgladac = true,
+    CzyAnonimowiMogaPisac = false
+},
+
+new PodforumModel
+{
+    Id = 2,
+    Nazwa = "Counter-Strike 2",
+    Opis = "Rozmowy o Counter-Strike 2.",
+    KategoriaForumId = 2,
+    CzyAnonimowiMogaOgladac = true,
+    CzyAnonimowiMogaPisac = true
+},
+
+new PodforumModel
+{
+    Id = 3,
+    Nazwa = "PlayStation 5",
+    Opis = "Dyskusje o konsoli PlayStation.",
+    KategoriaForumId = 3,
+    CzyAnonimowiMogaOgladac = false,
+    CzyAnonimowiMogaPisac = false
+}
+        };
+
+        private static int nastepneId = 4;
+
         private List<SelectListItem> PobierzKategorie()
         {
             return new List<SelectListItem>
             {
                 new SelectListItem { Value = "1", Text = "Gry komputerowe" },
                 new SelectListItem { Value = "2", Text = "Gry multiplayer" },
-                new SelectListItem { Value = "3", Text = "Sprzęt gamingowy" },
-                new SelectListItem { Value = "4", Text = "Konsole" }
+                new SelectListItem { Value = "3", Text = "Konsole" },
+                new SelectListItem { Value = "4", Text = "Sprzęt gamingowy" }
             };
         }
 
-        // formularz dodawania podforum
+        private void PrzygotujNazwyKategorii()
+        {
+            ViewBag.NazwyKategorii = new Dictionary<int, string>
+            {
+                { 1, "Gry komputerowe" },
+                { 2, "Gry multiplayer" },
+                { 3, "Konsole" },
+                { 4, "Sprzęt gamingowy" }
+            };
+        }
+
+        // Wyświetlenie listy podforów
+        [HttpGet]
+        public IActionResult Index()
+        {
+            PrzygotujNazwyKategorii();
+
+            return View(podfora);
+        }
+
+        // Formularz dodawania podforum
         [HttpGet]
         public IActionResult Dodaj()
         {
@@ -26,7 +82,7 @@ namespace ForumDlaGraczy.Controllers
             return View();
         }
 
-        // Obsługa formularza dodawania podforum
+        // Obsługa dodawania podforum
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Dodaj(PodforumModel model)
@@ -38,29 +94,32 @@ namespace ForumDlaGraczy.Controllers
                 return View(model);
             }
 
-            ViewBag.Komunikat = "Dane podforum są poprawne!";
+            model.Id = nastepneId++;
 
-            return View(model);
+            podfora.Add(model);
+
+            TempData["Komunikat"] = "Podforum zostało dodane!";
+
+            return RedirectToAction("Index");
         }
 
-        // formularz edycji podforum
+        // Formularz edycji podforum
         [HttpGet]
-        public IActionResult Edytuj()
+        public IActionResult Edytuj(int id)
         {
             ViewBag.Kategorie = PobierzKategorie();
 
-            var podforum = new PodforumModel
+            var podforum = podfora.FirstOrDefault(p => p.Id == id);
+
+            if (podforum == null)
             {
-                Id = 1,
-                Nazwa = "TEST",
-                Opis = "test test",
-                KategoriaForumId = 2
-            };
+                return NotFound();
+            }
 
             return View(podforum);
         }
 
-        // Obsługa formularza edycji podforum
+        // Obsługa edycji podforum
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edytuj(PodforumModel model)
@@ -72,9 +131,39 @@ namespace ForumDlaGraczy.Controllers
                 return View(model);
             }
 
-            ViewBag.Komunikat = "Dane podforum zostały poprawnie zmienione!";
+            var podforum = podfora.FirstOrDefault(p => p.Id == model.Id);
 
-            return View(model);
+            if (podforum == null)
+            {
+                return NotFound();
+            }
+
+            podforum.Nazwa = model.Nazwa;
+            podforum.Opis = model.Opis;
+            podforum.KategoriaForumId = model.KategoriaForumId;
+            podforum.CzyAnonimowiMogaOgladac = model.CzyAnonimowiMogaOgladac;
+            podforum.CzyAnonimowiMogaPisac = model.CzyAnonimowiMogaPisac;
+
+            TempData["Komunikat"] = "Podforum zostało zmienione!";
+
+            return RedirectToAction("Index");
+        }
+
+        // Usuwanie podforum
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Usun(int id)
+        {
+            var podforum = podfora.FirstOrDefault(p => p.Id == id);
+
+            if (podforum != null)
+            {
+                podfora.Remove(podforum);
+
+                TempData["Komunikat"] = "Podforum zostało usunięte!";
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }

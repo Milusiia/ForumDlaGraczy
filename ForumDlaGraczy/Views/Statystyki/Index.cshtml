@@ -1,0 +1,52 @@
+﻿@model ForumDlaGraczy.Models.StatystykiForumModel
+
+<h2>Statystyki forum</h2>
+
+<p>Podsumowanie aktywności na forum dla graczy.</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Statystyka</th>
+            <th>Wynik</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>Liczba użytkowników</td>
+            <td>@Model.LiczbaUzytkownikow</td>
+        </tr>
+
+        <tr>
+            <td>Liczba wątków</td>
+            <td>@Model.LiczbaWatkow</td>
+        </tr>
+
+        <tr>
+            <td>Liczba odpowiedzi</td>
+            <td>@Model.LiczbaOdpowiedzi</td>
+        </tr>
+
+        <tr>
+            <td>Liczba kategorii</td>
+            <td>@Model.LiczbaKategorii</td>
+        </tr>
+
+        <tr>
+            <td>Liczba podforów</td>
+            <td>@Model.LiczbaPodforow</td>
+        </tr>
+
+        <tr>
+            <td>Łączna liczba odsłon</td>
+            <td>@Model.LiczbaOdslon</td>
+        </tr>
+    </tbody>
+</table>
+
+<br />
+
+<a asp-controller="PanelAdministracyjny" asp-action="Index">
+    Powrót do panelu administracyjnego
+</a>

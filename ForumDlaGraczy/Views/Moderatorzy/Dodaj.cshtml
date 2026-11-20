@@ -4,22 +4,10 @@
     ViewData["Title"] = "Przypisz moderatora";
 }
 
-<div class="formularz-container">
-
-    <div class="formularz-panel">
-
-        <div class="formularz-naglowek">
-            <i class="fa-solid fa-user-shield"></i>
-            <h2>Przypisywanie moderatora</h2>
-            <p>Wybierz użytkownika i podforum, którym będzie zarządzać.</p>
-        </div>
-
-        @if (ViewBag.Komunikat != null)
-        {
-            <div class="komunikat-formularza">
-                @ViewBag.Komunikat
-            </div>
-        }
+@if (ViewBag.Komunikat != null)
+{
+    <p>@ViewBag.Komunikat</p>
+}
 
         <form asp-controller="Moderatorzy" asp-action="Dodaj" method="post">
 

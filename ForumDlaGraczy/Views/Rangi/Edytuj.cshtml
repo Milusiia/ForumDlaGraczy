@@ -1,0 +1,38 @@
+﻿@model ForumDlaGraczy.Models.ZmianaRangiModel
+
+<h2>Zmiana rangi użytkownika</h2>
+
+@if (ViewBag.Komunikat != null)
+{
+    <p>@ViewBag.Komunikat</p>
+}
+
+<form asp-controller="Rangi" asp-action="Edytuj" method="post">
+
+    <div>
+        <label asp-for="UzytkownikId"></label>
+
+        <select asp-for="UzytkownikId" asp-items="ViewBag.Uzytkownicy">
+            <option value="">-- Wybierz użytkownika --</option>
+        </select>
+
+        <span asp-validation-for="UzytkownikId"></span>
+    </div>
+
+    <br />
+
+    <div>
+        <label asp-for="Ranga"></label>
+
+        <select asp-for="Ranga" asp-items="ViewBag.Rangi">
+            <option value="">-- Wybierz rangę --</option>
+        </select>
+
+        <span asp-validation-for="Ranga"></span>
+    </div>
+
+    <br />
+
+    <button type="submit">Zmień rangę</button>
+
+</form>

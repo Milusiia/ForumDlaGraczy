@@ -1,0 +1,62 @@
+﻿@model IEnumerable<ForumDlaGraczy.Models.ZgloszenieModel>
+
+<h2>Zgłoszenia wiadomości</h2>
+
+@if (!Model.Any())
+{
+    <p>Brak zgłoszeń do wyświetlenia.</p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Numer wiadomości</th>
+                <th>Osoba zgłaszająca</th>
+                <th>Autor wiadomości</th>
+                <th>Treść wiadomości</th>
+                <th>Powód zgłoszenia</th>
+                <th>Status</th>
+                <th>Akcje</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var zgloszenie in Model)
+            {
+                <tr>
+                    <td>@zgloszenie.WiadomoscId</td>
+                    <td>@zgloszenie.AutorZglaszajacy</td>
+                    <td>@zgloszenie.AutorWiadomosci</td>
+                    <td>@zgloszenie.TrescWiadomosci</td>
+                    <td>@zgloszenie.Powod</td>
+                    <td>@zgloszenie.Status</td>
+
+                    <td>
+                        @if (zgloszenie.Status == "Oczekujące")
+                        {
+                            <form asp-controller="Zgloszenia"
+                                  asp-action="Rozpatrz"
+                                  method="post">
+
+                                @Html.AntiForgeryToken()
+
+                                <input type="hidden"
+                                       name="id"
+                                       value="@zgloszenie.Id" />
+
+                                <button type="submit">
+                                    Rozpatrz
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            <span>Sprawdzone</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
