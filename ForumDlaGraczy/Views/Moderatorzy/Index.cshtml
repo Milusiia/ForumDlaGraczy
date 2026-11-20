@@ -1,86 +1,108 @@
 ﻿@model IEnumerable<ForumDlaGraczy.Models.PrzypisanieModeratoraModel>
 
 @{
+    ViewData["Title"] = "Lista moderatorów";
+
     var nazwyUzytkownikow =
         ViewBag.NazwyUzytkownikow as Dictionary<int, string>;
 
     var nazwyPodforow =
         ViewBag.NazwyPodforow as Dictionary<int, string>;
 }
+<div class="formularz-container tabela-szeroka">
+    <div class="formularz-panel">
 
-<h2>Lista moderatorów</h2>
+        <div class="formularz-naglowek">
+            <h2>Lista moderatorów</h2>
+            <p>Zarządzaj moderatorami przypisanymi do poszczególnych podforów.</p>
+        </div>
 
-@if (TempData["Komunikat"] != null)
-{
-    <p>@TempData["Komunikat"]</p>
-}
+        @if (TempData["Komunikat"] != null)
+        {
+            <div class="komunikat-formularza">
+                @TempData["Komunikat"]
+            </div>
+        }
 
-<p>
-    <a asp-controller="Moderatorzy" asp-action="Dodaj">
-        Przypisz nowego moderatora
-    </a>
-</p>
+        <div class="przyciski-formularza">
+            <a asp-controller="Moderatorzy"
+               asp-action="Dodaj"
+               class="przycisk-dodaj">
+                <i class="fa-solid fa-user-plus"></i>
+                Przypisz nowego moderatora
+            </a>
+        </div>
 
-@if (!Model.Any())
-{
-    <p>Nie ma jeszcze żadnych przypisanych moderatorów.</p>
-}
-else
-{
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Użytkownik</th>
-                <th>Podforum</th>
-                <th>Akcje</th>
-            </tr>
-        </thead>
+        @if (!Model.Any())
+        {
+            <div class="brak-wiadomosci">
+                <i class="fa-solid fa-users"></i>
+                <p>Nie ma jeszcze żadnych przypisanych moderatorów.</p>
+            </div>
+        }
+        else
+        {
+            <div class="tabela-container">
+                <table class="tabela-administracyjna">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Użytkownik</th>
+                            <th>Podforum</th>
+                            <th>Akcje</th>
+                        </tr>
+                    </thead>
 
-        <tbody>
-            @foreach (var przypisanie in Model)
-            {
-                var idUzytkownika = przypisanie.UzytkownikId ?? 0;
-                var idPodforum = przypisanie.PodforumId ?? 0;
+                    <tbody>
+                        @foreach (var przypisanie in Model)
+                        {
+                            var idUzytkownika = przypisanie.UzytkownikId ?? 0;
+                            var idPodforum = przypisanie.PodforumId ?? 0;
 
-                var nazwaUzytkownika = "Nieznany użytkownik";
-                var nazwaPodforum = "Nieznane podforum";
+                            var nazwaUzytkownika = "Nieznany użytkownik";
+                            var nazwaPodforum = "Nieznane podforum";
 
-                if (nazwyUzytkownikow != null &&
-                    nazwyUzytkownikow.ContainsKey(idUzytkownika))
-                {
-                    nazwaUzytkownika = nazwyUzytkownikow[idUzytkownika];
-                }
+                            if (nazwyUzytkownikow != null &&
+                                nazwyUzytkownikow.ContainsKey(idUzytkownika))
+                            {
+                                nazwaUzytkownika = nazwyUzytkownikow[idUzytkownika];
+                            }
 
-                if (nazwyPodforow != null &&
-                    nazwyPodforow.ContainsKey(idPodforum))
-                {
-                    nazwaPodforum = nazwyPodforow[idPodforum];
-                }
+                            if (nazwyPodforow != null &&
+                                nazwyPodforow.ContainsKey(idPodforum))
+                            {
+                                nazwaPodforum = nazwyPodforow[idPodforum];
+                            }
 
-                <tr>
-                    <td>@przypisanie.Id</td>
-                    <td>@nazwaUzytkownika</td>
-                    <td>@nazwaPodforum</td>
+                            <tr>
+                                <td>@przypisanie.Id</td>
+                                <td>@nazwaUzytkownika</td>
+                                <td>@nazwaPodforum</td>
 
-                    <td>
-                        <form asp-controller="Moderatorzy"
-                              asp-action="Usun"
-                              asp-route-id="@przypisanie.Id"
-                              method="post"
-                              style="display:inline">
+                                <td>
+                                    <form asp-controller="Moderatorzy"
+                                          asp-action="Usun"
+                                          asp-route-id="@przypisanie.Id"
+                                          method="post"
+                                          style="display:inline">
 
-                            @Html.AntiForgeryToken()
+                                        @Html.AntiForgeryToken()
 
-                            <button type="submit"
-                                    onclick="return confirm('Czy na pewno chcesz odebrać uprawnienia tego moderatora?')">
-                                Odbierz uprawnienia
-                            </button>
+                                        <button type="submit"
+                                                class="przycisk-usun"
+                                                onclick="return confirm('Czy na pewno chcesz odebrać uprawnienia tego moderatora?')">
+                                            <i class="fa-solid fa-user-minus"></i>
+                                            Odbierz uprawnienia
+                                        </button>
 
-                        </form>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+
+    </div>
+</div>

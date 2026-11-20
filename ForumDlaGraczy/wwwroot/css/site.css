@@ -361,3 +361,374 @@ body {
         width: 100%;
     }
 }
+
+/* --- WIADOMOŚCI ADMINISTRACYJNE --- */
+
+.informacje-watku {
+    background-color: #1a1c29;
+    border-left: 3px solid #00ffa3;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+    .informacje-watku h3 {
+        color: #00ffa3;
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    .informacje-watku p {
+        color: #94a3b8;
+        margin-bottom: 8px;
+    }
+
+    .informacje-watku i {
+        color: #00ffa3;
+        margin-right: 8px;
+    }
+
+/* --- TREŚĆ WIADOMOŚCI --- */
+
+.tresc-wiadomosci {
+    min-width: 200px;
+    max-width: 400px;
+    overflow-wrap: anywhere;
+}
+
+/* --- PRZYCISKI AKCJI --- */
+
+.akcje-wiadomosci {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.przycisk-edytuj,
+.przycisk-usun {
+    display: inline-block;
+    border: none;
+    border-radius: 7px;
+    padding: 9px 12px;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.przycisk-edytuj {
+    background-color: #00ffa3;
+    color: #0d0e15;
+}
+
+    .przycisk-edytuj:hover {
+        background-color: #7b61ff;
+        color: white;
+    }
+
+.przycisk-usun {
+    background-color: #ff5c5c;
+    color: white;
+}
+
+    .przycisk-usun:hover {
+        background-color: #d93636;
+    }
+
+/* --- BRAK WIADOMOŚCI --- */
+
+.brak-wiadomosci {
+    text-align: center;
+    background-color: #1a1c29;
+    border-radius: 8px;
+    padding: 35px;
+    margin-bottom: 25px;
+}
+
+    .brak-wiadomosci i {
+        font-size: 35px;
+        color: #7b61ff;
+        margin-bottom: 15px;
+    }
+
+    .brak-wiadomosci p {
+        color: #94a3b8;
+        margin: 0;
+    }
+
+/* --- DOSTOSOWANIE DO TELEFONÓW --- */
+
+@media (max-width: 768px) {
+    .akcje-wiadomosci {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .informacje-watku {
+        padding: 15px;
+    }
+}
+
+/* --- TABELA ADMINISTRACYJNA --- */
+
+.tabela-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 30px;
+    padding-bottom: 15px;
+}
+
+.tabela-administracyjna {
+    width: 100%;
+    min-width: 1050px;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}
+
+    /* Nagłówki tabeli */
+
+    .tabela-administracyjna th {
+        background-color: #1a1c29;
+        color: #00ffa3;
+        padding: 18px 20px;
+        text-align: left;
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    /* Komórki tabeli */
+
+    .tabela-administracyjna td {
+        background-color: #161824;
+        color: #e2e8f0;
+        padding: 20px;
+        line-height: 1.6;
+        vertical-align: middle;
+    }
+
+    /* Zaokrąglenie pierwszej i ostatniej komórki */
+
+    .tabela-administracyjna tbody td:first-child {
+        border-radius: 10px 0 0 10px;
+    }
+
+    .tabela-administracyjna tbody td:last-child {
+        border-radius: 0 10px 10px 0;
+    }
+
+    /* Podświetlenie wiersza po najechaniu */
+
+    .tabela-administracyjna tbody tr td {
+        transition: background-color 0.2s ease;
+    }
+
+    .tabela-administracyjna tbody tr:hover td {
+        background-color: #222538;
+    }
+
+/* Tytuł wątku */
+
+.tytul-watku {
+    min-width: 180px;
+    max-width: 260px;
+    font-weight: 600;
+}
+
+/* Data */
+
+.data-watku {
+    white-space: nowrap;
+}
+
+/* Przycisk wiadomości */
+
+.przycisk-wiadomosci {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 16px;
+    border-radius: 7px;
+    background-color: #00ffa3;
+    color: #0d0e15;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+    .przycisk-wiadomosci:hover {
+        background-color: #7b61ff;
+        color: white;
+        transform: translateY(-2px);
+    }
+
+/* Dostosowanie tabeli do telefonów */
+
+@media (max-width: 768px) {
+    .tabela-container {
+        margin-top: 20px;
+    }
+
+    .tabela-administracyjna th,
+    .tabela-administracyjna td {
+        padding: 14px;
+    }
+}
+
+/* Większe okno list ogłoszeń i moderatorów */
+.tabela-szeroka {
+    width: 95vw !important;
+    max-width: 1600px !important;
+    margin: 40px auto !important;
+}
+
+    .tabela-szeroka .formularz-panel {
+        width: 100%;
+        max-width: none;
+        box-sizing: border-box;
+    }
+
+    .tabela-szeroka .tabela-container {
+        width: 100%;
+        overflow-x: visible;
+    }
+
+    .tabela-szeroka .tabela-administracyjna {
+        width: 100%;
+        min-width: 0 !important;
+        table-layout: fixed;
+    }
+
+        .tabela-szeroka .tabela-administracyjna th,
+        .tabela-szeroka .tabela-administracyjna td {
+            padding: 16px 12px;
+            overflow-wrap: anywhere;
+        }
+
+    .tabela-szeroka .akcje-wiadomosci {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+/* --- PANEL ADMINISTRACYJNY --- */
+
+.panel-administracyjny {
+    max-width: 1500px;
+    width: 95%;
+    margin: 40px auto;
+    box-sizing: border-box;
+}
+
+    /* Główny panel */
+    .panel-administracyjny .formularz-panel {
+        width: 100%;
+        max-width: none;
+        box-sizing: border-box;
+        border-top: 3px solid #7b61ff;
+    }
+
+    /* Nagłówek */
+    .panel-administracyjny .formularz-naglowek h2 {
+        color: #00ffa3;
+    }
+
+    .panel-administracyjny .formularz-naglowek i {
+        color: #7b61ff;
+    }
+
+/* Sekcje panelu */
+.sekcja-panelu {
+    margin-top: 35px;
+}
+
+    .sekcja-panelu h3 {
+        color: #a78bfa;
+        font-size: 20px;
+        margin-bottom: 20px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid #39304f;
+    }
+
+        .sekcja-panelu h3 i {
+            color: #00ffa3;
+            margin-right: 10px;
+        }
+
+/* Układ kafelków */
+.kafelki-panelu {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Pojedynczy kafelek */
+.kafelek-panelu {
+    min-width: 0;
+    min-height: 110px;
+    padding: 22px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: linear-gradient(135deg, #1c1d30, #12141f);
+    border: 1px solid #39304f;
+    border-left: 3px solid #7b61ff;
+    border-radius: 12px;
+    color: #e2e8f0;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+    /* Ikony */
+    .kafelek-panelu i {
+        font-size: 25px;
+        color: #a78bfa;
+        min-width: 30px;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    /* Tekst w kafelkach */
+    .kafelek-panelu span {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    /* Efekt najechania */
+    .kafelek-panelu:hover {
+        background: linear-gradient(135deg, #292440, #1a1c29);
+        border-color: #7b61ff;
+        border-left-color: #00ffa3;
+        color: #00ffa3;
+        transform: translateY(-4px);
+        box-shadow: 0 5px 18px rgba(123, 97, 255, 0.15);
+    }
+
+        .kafelek-panelu:hover i {
+            color: #00ffa3;
+        }
+
+/* Mniejsze ekrany */
+@media (max-width: 900px) {
+    .kafelki-panelu {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .kafelki-panelu {
+        grid-template-columns: 1fr;
+    }
+
+    .panel-administracyjny .formularz-panel {
+        padding: 25px 20px;
+    }
+}}

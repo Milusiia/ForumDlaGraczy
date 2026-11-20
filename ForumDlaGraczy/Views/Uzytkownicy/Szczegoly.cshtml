@@ -6,70 +6,89 @@
         Model.LockoutEnd.Value > DateTimeOffset.UtcNow;
 }
 
-<h2>Szczegóły użytkownika</h2>
+<div class="formularz-container">
+    <div class="formularz-panel">
 
-@if (TempData["Komunikat"] != null)
-{
-    <p>@TempData["Komunikat"]</p>
-}
+        <div class="formularz-naglowek">
+            <h2><i class="fas fa-user-circle"></i> Szczegóły użytkownika</h2>
+            <p>Informacje o koncie wybranego użytkownika.</p>
+        </div>
 
-<table>
-    <tr>
-        <th>Nazwa użytkownika</th>
-        <td>@Model.UserName</td>
-    </tr>
+        @if (TempData["Komunikat"] != null)
+        {
+            <div class="komunikat-formularza">
+                @TempData["Komunikat"]
+            </div>
+        }
 
-    <tr>
-        <th>Adres e-mail</th>
-        <td>@Model.Email</td>
-    </tr>
+        <div class="tabela-container">
+            <table class="tabela-administracyjna">
+                <tbody>
+                    <tr>
+                        <th>Nazwa użytkownika</th>
+                        <td>@Model.UserName</td>
+                    </tr>
 
-    <tr>
-        <th>Telefon</th>
-        <td>@Model.PhoneNumber</td>
-    </tr>
+                    <tr>
+                        <th>Adres e-mail</th>
+                        <td>@Model.Email</td>
+                    </tr>
 
-    <tr>
-        <th>Data rejestracji</th>
-        <td>@Model.DataRejestracji.ToString("dd.MM.yyyy HH:mm")</td>
-    </tr>
+                    <tr>
+                        <th>Telefon</th>
+                        <td>@Model.PhoneNumber</td>
+                    </tr>
 
-    <tr>
-        <th>Wybrana skórka</th>
-        <td>@Model.WybranaSkorka</td>
-    </tr>
+                    <tr>
+                        <th>Data rejestracji</th>
+                        <td>@Model.DataRejestracji.ToString("dd.MM.yyyy HH:mm")</td>
+                    </tr>
 
-    <tr>
-        <th>Wiadomości na stronę</th>
-        <td>@Model.WiadomosciNaStrone</td>
-    </tr>
+                    <tr>
+                        <th>Wybrana skórka</th>
+                        <td>@Model.WybranaSkorka</td>
+                    </tr>
 
-    <tr>
-        <th>Status konta</th>
-        <td>
-            @if (zablokowany)
-            {
-                <span>Zablokowany</span>
-            }
-            else
-            {
-                <span>Aktywny</span>
-            }
-        </td>
-    </tr>
-</table>
+                    <tr>
+                        <th>Wiadomości na stronę</th>
+                        <td>@Model.WiadomosciNaStrone</td>
+                    </tr>
 
-<br />
+                    <tr>
+                        <th>Status konta</th>
+                        <td>
+                            @if (zablokowany)
+                            {
+                                <span style="color: #ef4444; font-weight: 600;">
+                                    <i class="fas fa-ban"></i> Zablokowany
+                                </span>
+                            }
+                            else
+                            {
+                                <span style="color: #00ffa3; font-weight: 600;">
+                                    <i class="fas fa-check-circle"></i> Aktywny
+                                </span>
+                            }
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-<a asp-controller="Uzytkownicy"
-   asp-action="Edytuj"
-   asp-route-id="@Model.Id">
-    Edytuj użytkownika
-</a>
+        <div class="przyciski-formularza">
+            <a asp-controller="Uzytkownicy"
+               asp-action="Edytuj"
+               asp-route-id="@Model.Id"
+               class="przycisk-edytuj">
+                <i class="fas fa-edit"></i> Edytuj użytkownika
+            </a>
 
-<br />
-<br />
+            <a asp-controller="Uzytkownicy"
+               asp-action="Index"
+               class="przycisk-wiadomosci">
+                <i class="fas fa-arrow-left"></i> Powrót do listy użytkowników
+            </a>
+        </div>
 
-<a asp-controller="Uzytkownicy" asp-action="Index">
-    Powrót do listy użytkowników
-</a>
+    </div>
+</div>

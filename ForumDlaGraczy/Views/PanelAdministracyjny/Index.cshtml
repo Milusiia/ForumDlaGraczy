@@ -1,76 +1,83 @@
-﻿<h2>Panel administracyjny</h2>
+﻿@{
+    ViewData["Title"] = "Panel administracyjny";
+}
 
-<p>Witaj w panelu administracyjnym forum dla graczy!</p>
+<div class="formularz-container panel-administracyjny">
 
-<h3>Zarządzanie forum</h3>
+    <div class="formularz-panel">
 
-<ul>
-    <li>
-        <a asp-controller="Kategorie" asp-action="Index">
-            Zarządzanie kategoriami
-        </a>
-    </li>
+        <div class="formularz-naglowek">
+            <h2><i class="fa-solid fa-shield-halved"></i> Panel administracyjny</h2>
+            <p>Witaj w panelu administracyjnym forum dla graczy!</p>
+        </div>
 
-    <li>
-        <a asp-controller="Podfora" asp-action="Index">
-            Zarządzanie podforami
-        </a>
-    </li>
+        <div class="sekcja-panelu">
+            <h3><i class="fa-solid fa-gears"></i> Zarządzanie forum</h3>
 
-    <li>
-        <a asp-controller="Ogloszenia" asp-action="Index">
-            Zarządzanie ogłoszeniami
-        </a>
-    </li>
+            <div class="kafelki-panelu">
+                <a asp-controller="Kategorie" asp-action="Index" class="kafelek-panelu">
+                    <i class="fa-solid fa-folder"></i>
+                    <span>Zarządzanie kategoriami</span>
+                </a>
 
-    <li>
-        <a asp-controller="Moderatorzy" asp-action="Index">
-            Zarządzanie moderatorami
-        </a>
-    </li>
+                <a asp-controller="Podfora" asp-action="Index" class="kafelek-panelu">
+                    <i class="fa-solid fa-comments"></i>
+                    <span>Zarządzanie podforami</span>
+                </a>
 
-    <li>
-        <a asp-controller="Statystyki" asp-action="Index">
-            Statystyki forum
-        </a>
-    </li>
+                <a asp-controller="Ogloszenia" asp-action="Index" class="kafelek-panelu">
+                    <i class="fa-solid fa-bullhorn"></i>
+                    <span>Zarządzanie ogłoszeniami</span>
+                </a>
 
-    <li>
-        <a asp-controller="AdministracjaTresci" asp-action="Index">
-            Zarządzanie wątkami i wiadomościami
-        </a>
-    </li>
-</ul>
+                <a asp-controller="Moderatorzy" asp-action="Index" class="kafelek-panelu">
+                    <i class="fa-solid fa-user-shield"></i>
+                    <span>Zarządzanie moderatorami</span>
+                </a>
 
+                <a asp-controller="Statystyki" asp-action="Index" class="kafelek-panelu">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>Statystyki forum</span>
+                </a>
 
-<h3>Moderacja</h3>
+                <a asp-controller="AdministracjaTresci" asp-action="Index" class="kafelek-panelu">
+                    <i class="fa-solid fa-file-lines"></i>
+                    <span>Zarządzanie wątkami i wiadomościami</span>
+                </a>
+            </div>
+        </div>
 
-<ul>
-    <li>
-        <a asp-controller="Zgloszenia" asp-action="Index">
-            Zgłoszenia wiadomości
-        </a>
-    </li>
+        <div class="sekcja-panelu">
+            <h3><i class="fa-solid fa-gavel"></i> Moderacja</h3>
 
-    <li>
-        <a asp-controller="PrzypieciaWatkow" asp-action="Edytuj">
-            Przypinanie wątków
-        </a>
-    </li>
-</ul>
+            <div class="kafelki-panelu">
+                <a asp-controller="Zgloszenia" asp-action="Index" class="kafelek-panelu">
+                    <i class="fa-solid fa-flag"></i>
+                    <span>Zgłoszenia wiadomości</span>
+                </a>
 
-<h3>Użytkownicy</h3>
+                <a asp-controller="PrzypieciaWatkow" asp-action="Edytuj" class="kafelek-panelu">
+                    <i class="fa-solid fa-thumbtack"></i>
+                    <span>Przypinanie wątków</span>
+                </a>
+            </div>
+        </div>
 
-<li>
-    <a asp-controller="Uzytkownicy" asp-action="Index">
-        Zarządzanie użytkownikami
-    </a>
-</li>
+        <div class="sekcja-panelu">
+            <h3><i class="fa-solid fa-users"></i> Użytkownicy</h3>
 
-<ul>
-    <li>
-        <a asp-controller="Rangi" asp-action="Edytuj">
-            Zarządzanie rangami
-        </a>
-    </li>
-</ul>
+            <div class="kafelki-panelu">
+                <a asp-controller="Uzytkownicy" asp-action="Index" class="kafelek-panelu">
+                    <i class="fa-solid fa-user-group"></i>
+                    <span>Zarządzanie użytkownikami</span>
+                </a>
+
+                <a asp-controller="Rangi" asp-action="Edytuj" class="kafelek-panelu">
+                    <i class="fa-solid fa-medal"></i>
+                    <span>Zarządzanie rangami</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>

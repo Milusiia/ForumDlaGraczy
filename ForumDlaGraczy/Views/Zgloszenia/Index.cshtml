@@ -1,62 +1,100 @@
 ﻿@model IEnumerable<ForumDlaGraczy.Models.ZgloszenieModel>
 
-<h2>Zgłoszenia wiadomości</h2>
-
-@if (!Model.Any())
-{
-    <p>Brak zgłoszeń do wyświetlenia.</p>
+@{
+    ViewData["Title"] = "Zgłoszenia wiadomości";
 }
-else
-{
-    <table>
-        <thead>
-            <tr>
-                <th>Numer wiadomości</th>
-                <th>Osoba zgłaszająca</th>
-                <th>Autor wiadomości</th>
-                <th>Treść wiadomości</th>
-                <th>Powód zgłoszenia</th>
-                <th>Status</th>
-                <th>Akcje</th>
-            </tr>
-        </thead>
 
-        <tbody>
-            @foreach (var zgloszenie in Model)
-            {
-                <tr>
-                    <td>@zgloszenie.WiadomoscId</td>
-                    <td>@zgloszenie.AutorZglaszajacy</td>
-                    <td>@zgloszenie.AutorWiadomosci</td>
-                    <td>@zgloszenie.TrescWiadomosci</td>
-                    <td>@zgloszenie.Powod</td>
-                    <td>@zgloszenie.Status</td>
+<div class="tabela-container tabela-szeroka">
 
-                    <td>
-                        @if (zgloszenie.Status == "Oczekujące")
-                        {
-                            <form asp-controller="Zgloszenia"
-                                  asp-action="Rozpatrz"
-                                  method="post">
+    <div class="formularz-panel">
 
-                                @Html.AntiForgeryToken()
+        <div class="formularz-naglowek">
+            <h2><i class="fas fa-flag"></i> Zgłoszenia wiadomości</h2>
+            <p>Przeglądaj i rozpatruj zgłoszenia wiadomości użytkowników.</p>
+        </div>
 
-                                <input type="hidden"
-                                       name="id"
-                                       value="@zgloszenie.Id" />
+        @if (Model == null || !Model.Any())
+        {
+            <div class="brak-wiadomosci">
+                <i class="fas fa-inbox"></i>
+                <p>Brak zgłoszeń do wyświetlenia.</p>
+            </div>
+        }
+        else
+        {
+            <table class="tabela-administracyjna">
+                <thead>
+                    <tr>
+                        <th>Numer wiadomości</th>
+                        <th>Osoba zgłaszająca</th>
+                        <th>Autor wiadomości</th>
+                        <th>Treść wiadomości</th>
+                        <th>Powód zgłoszenia</th>
+                        <th>Status</th>
+                        <th>Akcje</th>
+                    </tr>
+                </thead>
 
-                                <button type="submit">
-                                    Rozpatrz
-                                </button>
-                            </form>
-                        }
-                        else
-                        {
-                            <span>Sprawdzone</span>
-                        }
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+                <tbody>
+                    @foreach (var zgloszenie in Model)
+                    {
+                        <tr>
+                            <td>@zgloszenie.WiadomoscId</td>
+                            <td>@zgloszenie.AutorZglaszajacy</td>
+                            <td>@zgloszenie.AutorWiadomosci</td>
+                            <td>@zgloszenie.TrescWiadomosci</td>
+                            <td>@zgloszenie.Powod</td>
+                            <td>
+                                @if (zgloszenie.Status == "Oczekujące")
+                                {
+                                    <span class="status-oczekujace">
+                                        Oczekujące
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="status-sprawdzone">
+                                        Sprawdzone
+                                    </span>
+                                }
+                            </td>
+
+                            <td>
+                                @if (zgloszenie.Status == "Oczekujące")
+                                {
+                                    <form asp-controller="Zgloszenia"
+                                          asp-action="Rozpatrz"
+                                          method="post">
+
+                                        @Html.AntiForgeryToken()
+
+                                        <input type="hidden"
+                                               name="id"
+                                               value="@zgloszenie.Id" />
+
+                                        <button type="submit" class="przycisk-edytuj">
+                                            <i class="fas fa-check"></i> Rozpatrz
+                                        </button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <span>Sprawdzone</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+        <div class="przyciski-formularza">
+            <a asp-controller="PanelAdministracyjny"
+               asp-action="Index"
+               class="przycisk-dodaj">
+                <i class="fas fa-arrow-left"></i> Powrót do panelu administracyjnego
+            </a>
+        </div>
+
+    </div>
+</div>

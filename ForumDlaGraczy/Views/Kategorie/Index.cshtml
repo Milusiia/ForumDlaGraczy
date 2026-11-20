@@ -1,54 +1,99 @@
 ﻿@model IEnumerable<ForumDlaGraczy.Models.KategoriaForumModel>
 
-<h2>Lista kategorii forum</h2>
-
-@if (TempData["Komunikat"] != null)
-{
-    <p>@TempData["Komunikat"]</p>
+@{
+    ViewData["Title"] = "Lista kategorii";
 }
 
-<p>
-    <a asp-controller="Kategorie" asp-action="Dodaj">
-        Dodaj nową kategorię
-    </a>
-</p>
+<div class="formularz-container tabela-szeroka">
+    <div class="formularz-panel">
 
-<table>
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Nazwa kategorii</th>
-            <th>Opis kategorii</th>
-            <th>Akcje</th>
-        </tr>
-    </thead>
+        <div class="formularz-naglowek">
+            <h2><i class="fa-solid fa-folder"></i> Lista kategorii forum</h2>
+            <p>Zarządzaj kategoriami dostępnymi na forum.</p>
+        </div>
 
-    <tbody>
-        @foreach (var kategoria in Model)
+        @if (TempData["Komunikat"] != null)
         {
-            <tr>
-                <td>@kategoria.Id</td>
-                <td>@kategoria.Nazwa</td>
-                <td>@kategoria.Opis</td>
-
-                <td>
-                    <a asp-controller="Kategorie"
-                       asp-action="Edytuj"
-                       asp-route-id="@kategoria.Id">
-                        Edytuj
-                    </a>
-
-                    <form asp-controller="Kategorie"
-                          asp-action="Usun"
-                          asp-route-id="@kategoria.Id"
-                          method="post"
-                          style="display:inline">
-
-                        <button type="submit">Usuń</button>
-
-                    </form>
-                </td>
-            </tr>
+            <div class="komunikat-formularza">
+                @TempData["Komunikat"]
+            </div>
         }
-    </tbody>
-</table>
+
+        <div class="przyciski-formularza">
+            <a asp-controller="Kategorie"
+               asp-action="Dodaj"
+               class="przycisk-dodaj">
+                <i class="fa-solid fa-plus"></i>
+                Dodaj nową kategorię
+            </a>
+        </div>
+
+        @if (!Model.Any())
+        {
+            <div class="brak-wiadomosci">
+                <i class="fa-solid fa-folder-open"></i>
+                <p>Nie ma jeszcze żadnych kategorii forum.</p>
+            </div>
+        }
+        else
+        {
+            <div class="tabela-container">
+                <table class="tabela-administracyjna">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nazwa kategorii</th>
+                            <th>Opis kategorii</th>
+                            <th>Akcje</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @foreach (var kategoria in Model)
+                        {
+                            <tr>
+                                <td>@kategoria.Id</td>
+
+                                <td class="tytul-watku">
+                                    @kategoria.Nazwa
+                                </td>
+
+                                <td class="tresc-wiadomosci">
+                                    @kategoria.Opis
+                                </td>
+
+                                <td>
+                                    <div class="akcje-wiadomosci">
+                                        <a asp-controller="Kategorie"
+                                           asp-action="Edytuj"
+                                           asp-route-id="@kategoria.Id"
+                                           class="przycisk-edytuj">
+                                            <i class="fa-solid fa-pen"></i>
+                                            Edytuj
+                                        </a>
+
+                                        <form asp-controller="Kategorie"
+                                              asp-action="Usun"
+                                              asp-route-id="@kategoria.Id"
+                                              method="post">
+
+                                            @Html.AntiForgeryToken()
+
+                                            <button type="submit"
+                                                    class="przycisk-usun"
+                                                    onclick="return confirm('Czy na pewno chcesz usunąć tę kategorię?')">
+                                                <i class="fa-solid fa-trash"></i>
+                                                Usuń
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+
+    </div>
+</div>

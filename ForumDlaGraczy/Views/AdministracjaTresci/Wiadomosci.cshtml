@@ -1,84 +1,135 @@
 ﻿@model IEnumerable<ForumDlaGraczy.Models.WiadomoscAdministracyjnaModel>
 
 @{
+    ViewData["Title"] = "Wiadomości w wątku";
     var watek = ViewBag.Watek as ForumDlaGraczy.Models.WatekAdministracyjnyModel;
 }
 
-<h2>Wiadomości w wątku</h2>
+<div class="zarzadzanie-container">
 
-@if (TempData["Komunikat"] != null)
-{
-    <p>@TempData["Komunikat"]</p>
-}
+    <div class="zarzadzanie-panel">
 
-@if (watek != null)
-{
-    <h3>@watek.Tytul</h3>
-    <p>Autor wątku: @watek.Autor</p>
-    <p>Forum: @watek.Podforum</p>
-}
+        <div class="zarzadzanie-naglowek">
+            <i class="fa-solid fa-comments"></i>
+            <h2>Wiadomości w wątku</h2>
+            <p>Przeglądaj, edytuj i usuwaj wiadomości użytkowników.</p>
+        </div>
 
-@if (!Model.Any())
-{
-    <p>Ten wątek nie ma jeszcze żadnych odpowiedzi.</p>
-}
-else
-{
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Autor</th>
-                <th>Treść wiadomości</th>
-                <th>Data</th>
-                <th>Akcje</th>
-            </tr>
-        </thead>
+        @if (TempData["Komunikat"] != null)
+        {
+            <div class="komunikat-formularza">
+                @TempData["Komunikat"]
+            </div>
+        }
 
-        <tbody>
-            @foreach (var wiadomosc in Model)
-            {
-                <tr>
-                    <td>@wiadomosc.Id</td>
+        @if (watek != null)
+        {
+            <div class="informacje-watku">
+                <h3>@watek.Tytul</h3>
 
-                    <td>@wiadomosc.Autor</td>
+                <p>
+                    <i class="fa-solid fa-user"></i>
+                    <strong>Autor wątku:</strong> @watek.Autor
+                </p>
 
-                    <td>@wiadomosc.Tresc</td>
+                <p>
+                    <i class="fa-solid fa-folder"></i>
+                    <strong>Forum:</strong> @watek.Podforum
+                </p>
+            </div>
+        }
 
-                    <td>@wiadomosc.DataUtworzenia.ToString("dd.MM.yyyy HH:mm")</td>
+        @if (!Model.Any())
+        {
+            <div class="brak-wiadomosci">
+                <i class="fa-solid fa-comment-slash"></i>
+                <p>Ten wątek nie ma jeszcze żadnych odpowiedzi.</p>
+            </div>
+        }
+        else
+        {
+            <div class="tabela-container">
 
-                    <td>
-                        <a asp-controller="AdministracjaTresci"
-                           asp-action="EdytujWiadomosc"
-                           asp-route-id="@wiadomosc.Id">
-                            Edytuj
-                        </a>
+                <table class="tabela-administracyjna">
 
-                        |
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Autor</th>
+                            <th>Treść wiadomości</th>
+                            <th>Data</th>
+                            <th>Akcje</th>
+                        </tr>
+                    </thead>
 
-                        <form asp-controller="AdministracjaTresci"
-                              asp-action="UsunWiadomosc"
-                              asp-route-id="@wiadomosc.Id"
-                              method="post"
-                              style="display:inline">
+                    <tbody>
+                        @foreach (var wiadomosc in Model)
+                        {
+                            <tr>
+                                <td>@wiadomosc.Id</td>
 
-                            @Html.AntiForgeryToken()
+                                <td>@wiadomosc.Autor</td>
 
-                            <button type="submit"
-                                    onclick="return confirm('Czy na pewno chcesz usunąć tę wiadomość?')">
-                                Usuń
-                            </button>
+                                <td class="tresc-wiadomosci">
+                                    @wiadomosc.Tresc
+                                </td>
 
-                        </form>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+                                <td>
+                                    @wiadomosc.DataUtworzenia.ToString("dd.MM.yyyy HH:mm")
+                                </td>
 
-<br />
+                                <td>
+                                    <div class="akcje-wiadomosci">
 
-<a asp-controller="AdministracjaTresci" asp-action="Index">
-    Powrót do listy wątków
-</a>
+                                        <a asp-controller="AdministracjaTresci"
+                                           asp-action="EdytujWiadomosc"
+                                           asp-route-id="@wiadomosc.Id"
+                                           class="przycisk-edytuj">
+
+                                            <i class="fa-solid fa-pen"></i>
+                                            Edytuj
+
+                                        </a>
+
+                                        <form asp-controller="AdministracjaTresci"
+                                              asp-action="UsunWiadomosc"
+                                              asp-route-id="@wiadomosc.Id"
+                                              method="post">
+
+                                            @Html.AntiForgeryToken()
+
+                                            <button type="submit"
+                                                    class="przycisk-usun"
+                                                    onclick="return confirm('Czy na pewno chcesz usunąć tę wiadomość?')">
+
+                                                <i class="fa-solid fa-trash"></i>
+                                                Usuń
+
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+
+            </div>
+        }
+
+        <div class="powrot-administracja">
+            <a asp-controller="AdministracjaTresci"
+               asp-action="Index">
+
+                <i class="fa-solid fa-arrow-left"></i>
+                Powrót do listy wątków
+
+            </a>
+        </div>
+
+    </div>
+
+</div>
